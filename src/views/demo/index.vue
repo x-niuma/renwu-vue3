@@ -1,14 +1,11 @@
 <template>
   <div class="wrapper">
-    <div class="header">
-      <SearchForm showRank />
-      <FilterMenu ref="scrollbar" class="menu" @change="tabIndexChanged" />
-    </div>
     <div class="main">
-      <swiper class="mySwiper" @swiper="onSwiper" :allowSlideNext="true"
-        :autoplay="{ delay: 1000, disableOnInteraction: false }" @slideChange="slideChange" ref="mySwiper">
+      <swiper class="mySwiper" @swiper="onSwiper" @slideChange="slideChange" ref="mySwiper">
         <swiper-slide class="swiper-slider" v-for="(item, index) in list" :key="index">
-          <DemandList :appTypeId="item.id" :index="index" :activeIndex="activeIndex" />
+          <div class="swiper-slider">
+            {{  index }}
+          </div>
         </swiper-slide>
       </swiper>
     </div>
@@ -18,9 +15,6 @@
 <script setup lang="ts">
 import 'swiper/css'
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
-import FilterMenu from './components/category-list.vue'
-import DemandList from './components/project-list.vue'
-import SearchForm from './components/search-form.vue'
 import * as api from '@/service/project'
 import { onMounted, ref } from 'vue'
 
@@ -48,10 +42,6 @@ onMounted(async () => {
   let res = await api.getProjectCategory()
   list.value = res.data.list;
 })
-
-//     appTypeId() {
-//       return this.$route.query.appTypeId
-//     }
 </script>
 
 <style lang="less" scoped>
@@ -60,16 +50,6 @@ onMounted(async () => {
   display: flex;
   flex-direction: column;
   background: #f4f4f4;
-}
-
-.header {
-  z-index: 5;
-  width: 100%;
-  top: 0;
-
-  .menu {
-    margin-top: -1px;
-  }
 }
 
 .main {
@@ -82,8 +62,8 @@ onMounted(async () => {
   }
 
   .swiper-slider {
-    overflow: auto;
     height: 100%;
+    background-color: red;
   }
 }
 </style>

@@ -62,6 +62,8 @@ export default {
 
 .body {
   height: 100%;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
 }
 

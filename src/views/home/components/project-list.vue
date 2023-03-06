@@ -163,7 +163,7 @@ export default {
         this.list = this.list.concat(res.data.list)
       }
 
-      this.total = res.data.pageInfo.total
+      this.total = res.data.total
       this.hasMore = this.list.length < this.total
       this.isRefresh = false
     },

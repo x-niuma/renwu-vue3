@@ -1,6 +1,7 @@
 :root {
   --van-tabbar-item-text-color: #888;
   --van-tabbar-item-active-color: #000;
+  --van-primary-color: #000;
 }
 
 /* @media (prefers-color-scheme: dark) {
@@ -33,4 +34,9 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.ui-flex {
+  display: flex;
+  align-items: center;
 }
