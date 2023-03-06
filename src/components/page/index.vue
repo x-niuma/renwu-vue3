@@ -56,8 +56,8 @@ export default {
 <style lang="less" scoped>
 .page {
   position: relative;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
 }
 
 .body {
