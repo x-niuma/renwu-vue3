@@ -1,5 +1,5 @@
 <template>
-  <div class="tab-bar">
+  <div class="tabbar">
     <van-tabbar route>
       <template v-for="item in menus">
         <van-tabbar-item
@@ -67,7 +67,7 @@ export default defineComponent({
 </script>
 
 <style lang="less" scoped>
-.tab-bar {
+.tabbar {
   z-index: 999;
   position: fixed;
   bottom: 0;
@@ -78,7 +78,7 @@ export default defineComponent({
   align-items: center;
   height: 50px;
   box-shadow: 1px 1px 10px -3px #e6e1e1;
-  .tab-bar-item {
+  .tabbar-item {
     flex: 1;
     display: flex;
     flex-direction: column;
