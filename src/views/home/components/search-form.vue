@@ -65,9 +65,7 @@
         this.$router.go(-1)
       },
       goRank() {
-        this.$router.push({
-          name: 'nuser'
-        })
+        this.$router.push('/user-rank')
       }
     }
   }

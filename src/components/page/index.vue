@@ -2,6 +2,7 @@
   <div class="page">
     <div class="header" v-if="title">
       <van-nav-bar :title="title" left-arrow @click-left="onClickLeft" />
+
     </div>
     <div
       class="body"
@@ -24,6 +25,7 @@
 import TabBar from '../tabbar/index.vue'
 import { Tab, Tabs, NavBar } from 'vant'
 import { useRouter } from 'vue-router'
+
 export default {
   components: {
     TabBar,
@@ -42,9 +44,11 @@ export default {
       type: String
     }
   },
-  setup() {
-    const router = useRouter()
+  setup(props) {
+    const router = useRouter();
+    const isStr = typeof props.title === 'string';
     return {
+      isStr,
       onClickLeft() {
         router.back()
       }
@@ -64,7 +68,7 @@ export default {
   height: 100%;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  overflow: scroll;
 }
 
 .with-header {
