@@ -142,7 +142,7 @@ export default {
     },
 
     switchItem(itemId) {
-      this.$router.push(`/project/${itemId}`)
+      this.$router.push(`/project-detail?id=${itemId}`)
     },
 
     async getDataList() {
