@@ -29,7 +29,7 @@ const getEnrolls = async () => {
 onMounted(() => {
   getDetails();
   getEnrolls();
-})
+});
 </script>
 
 <style lang="less" scoped src="./index.less"></style>

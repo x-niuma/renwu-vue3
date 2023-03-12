@@ -36,7 +36,6 @@
 </template>
   
 <script setup lang="ts">
-import { Field, Button, Toast } from 'vant'
 import { computed, ref } from 'vue';
 
 const LOGIN_TYPE = 1;
@@ -120,14 +119,15 @@ const handleClick = () => {}
   </script>
   
   <style lang="less" scoped>
+  .view-login {
+    height: 100%;
+    background-color: #fff;
+  }
   .form {
     padding: 20px;
     .form-item {
       padding-left: 0;
     }
-    // /deep/ .van-cell:not(:last-child)::after {
-    //   left: 0;
-    // }
   }
   
   .button {
@@ -161,10 +161,6 @@ const handleClick = () => {}
   
   .wrapper {
     background: #fff;
-  }
-  
-  .btn-toggle {
-    // color: @button-primary-bg-color;
   }
   </style>
   

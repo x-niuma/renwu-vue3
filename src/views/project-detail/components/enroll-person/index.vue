@@ -1,5 +1,4 @@
 <template>
-  <!-- 报名列表 -->
   <div class="floor floor-candidate">
     <div class="floor__header">
       <span>投标列表</span>
@@ -40,3 +39,5 @@ const isScroll = ref(false);
 const userInfo = ref({})
 const loadMoreEnrollList = () => {}
 </script>
+
+<style lang="less" scoped src="./index.less"></style>
