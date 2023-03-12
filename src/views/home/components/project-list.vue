@@ -1,21 +1,21 @@
 <template>
-  <div v-infinite-scroll="loadMore" :infinite-scroll-disabled="loading" :infinite-scroll-distance="20"
-    infinite-scroll-immediate-check="false">
+  <div
+    v-infinite-scroll="loadMore"
+    :infinite-scroll-disabled="loading"
+    :infinite-scroll-distance="20"
+    infinite-scroll-immediate-check="false"
+  >
     <ul class="d-list">
       <li class="d-item" v-for="(item, index) in list" :key="index" @click="switchItem(item.id)">
         <div class="d-item__hd">
           <div class="d-item__logo-main">
             <div class="title-wrapper">
               <span class="title">{{ index + 1 }}. {{ item.title }}</span>
-              <van-icon name="ellipsis" @click.stop="$store.dispatch('showComplain', {
-                oid: item.id,
-                type: 3,
-                uid: item.userInfo.id
-              })" />
+              <van-icon name="ellipsis" />
             </div>
             <div class="tags">
-              <InlineTag :text="item.appType" />
-              <InlineTag :text="item.projectType + '任务'" />
+              <InlineTag :text="item.task_type_name" />
+              <InlineTag :text="item.category_name" />
             </div>
           </div>
         </div>
@@ -26,21 +26,21 @@
           </div>
           <div class="column">
             <span class="label">技能要求：</span>
-            <span>{{ item.requires || '无任何要求' }}</span>
+            <span>{{ item.skill || '无任何要求' }}</span>
           </div>
           <div class="column">
             <span class="label">发布时间：</span>
-            <span>{{ item.createTime | formatDate }}</span>
+            <span>{{ item.create_time }}</span>
           </div>
         </div>
         <div class="d-item__ft">
-          <div class="ui-flex" @click.stop="$router.push('/userProfile/' + item.userInfo.id)">
-            <img class="d-item__avatar" :src="item.userInfo.avatar || avatar" />
-            <div class="d-item__name">{{ item.userInfo.nickname }}</div>
+          <div class="ui-flex" @click.stop="goUserProfile(item.user_id)">
+            <img class="d-item__avatar" :src="item.author_avatar || avatar" />
+            <div class="d-item__name">{{ item.author_name }}</div>
           </div>
           <div class="ui-flex enroll-info">
             <van-icon class="icon-users" name="friends" />
-            <span class="enroll-num">{{ item.enrollList.length }}人报名</span>
+            <span class="enroll-num">{{ item.enrollList?.length || 0 }}人报名</span>
             <!-- <van-icon class="arrow-right" name="arrow" /> -->
           </div>
         </div>
@@ -61,122 +61,106 @@
     </template>
   </div>
 </template>
-  
-<script>
-import * as projectService from '@/service/project';
+
+<script lang="ts" setup>
+import * as projectService from '@/auto-service/项目模块'
 import Loading from '@/components/loading/index.vue'
 import NoneData from '@/components/none-data/index.vue'
 import InlineTag from '@/components/inline-tag/index.vue'
 import avatar from '@/assets/img/avatar.png'
+import { ref, onMounted, watch } from 'vue'
+import { useRouter } from 'vue-router'
+import type { ProjectListVo } from '@/auto-service/types'
 
-export default {
-  components: {
-    Loading,
-    NoneData,
-    InlineTag
+const props = defineProps({
+  appTypeId: {
+    type: [String, Number],
+    default: ''
   },
-
-  props: {
-    appTypeId: {
-      type: [String, Number],
-      default: ''
-    },
-    params: {
-      type: Object,
-      default: () => { }
-    },
-    index: {
-      type: Number,
-      required: true
-    },
-    activeIndex: {
-      type: Number,
-      required: true
-    }
+  params: {
+    type: Object,
+    default: () => {}
   },
-
-  data() {
-    return {
-      avatar,
-      list: [],
-      loading: false,
-      hasMore: true,
-      isRefresh: false,
-      pageIndex: 1,
-      pageSize: 10,
-      total: 0,
-      currentRow: null
-    }
+  index: {
+    type: Number,
+    required: true
   },
+  activeIndex: {
+    type: Number,
+    required: true
+  }
+})
 
-  computed: {
-    cid() {
-      return this.$route.query.cid
-    }
-  },
+const router = useRouter()
+const goUserProfile = (id: number) => {
+  router.push('/userProfile/' + id)
+}
 
-  watch: {
-    // appTypeId() {
-    //   this.handleParamChanged()
-    // },
-    activeIndex() {
-      if (this.index === this.activeIndex) {
-        this.getDataList()
-      }
-    }
-  },
+const list = ref([] as ProjectListVo['list'])
+const loading = ref(false)
+const hasMore = ref(true)
+const isRefresh = ref(false)
 
-  mounted() {
-    if (this.index === this.activeIndex) {
-      this.getDataList()
-    }
-  },
+const pageIndex = ref(1)
+const pageSize = 10
+const total = ref(0)
 
-  methods: {
-    loadMore() {
-      if (this.loading) return
-      if (!this.hasMore) return
+async function getDataList() {
+  loading.value = true
+  const params = {
+    pageSize: pageSize,
+    pageIndex: pageIndex.value,
+    // appTypeId: props.appTypeId,
+    ...props.params
+  }
 
-      this.pageIndex++
-      this.getDataList()
-    },
+  let res: any = await projectService.queryList(params)
+  loading.value = false
 
-    switchItem(itemId) {
-      this.$router.push(`/project-detail?id=${itemId}`)
-    },
+  if (isRefresh.value) {
+    list.value = res.data.list
+  } else {
+    list.value = list.value.concat(res.data.list)
+  }
 
-    async getDataList() {
-      this.loading = true
-      const params = {
-        pageSize: this.pageSize,
-        pageIndex: this.pageIndex,
-        appTypeId: this.appTypeId,
-        ...this.params
-      }
+  total.value = res.data.total
+  hasMore.value = list.value.length < total.value
+  isRefresh.value = false
+}
 
-      let res = await projectService.getProjectList(params)
-      this.loading = false
+const switchItem = (itemId: number) => {
+  router.push(`/project-detail?id=${itemId}`)
+}
 
-      if (this.isRefresh) {
-        this.list = res.data.list
-      } else {
-        this.list = this.list.concat(res.data.list)
-      }
+const handleParamChanged = () => {
+  isRefresh.value = true
+  pageIndex.value = 1
+  getDataList()
+}
 
-      this.total = res.data.total
-      this.hasMore = this.list.length < this.total
-      this.isRefresh = false
-    },
+const loadMore = () => {
+  if (loading.value) return
+  if (!hasMore.value) return
+  pageIndex.value++
+  getDataList()
+}
 
-    handleParamChanged() {
-      this.isRefresh = true
-      this.pageIndex = 1
-      this.getDataList()
+onMounted(() => {
+  if (props.index === props.activeIndex) {
+    getDataList()
+  }
+})
+
+watch(
+  () => props.activeIndex,
+  () => {
+    if (props.activeIndex === props.index) {
+      getDataList()
     }
   }
-}
+)
 </script>
-  
+
 <style lang="less" scoped>
 .view {
   min-height: 100vh;
@@ -200,7 +184,7 @@ export default {
 .d-list {
   overflow: hidden;
   padding: 12px;
-  padding-bottom: 0;
+  padding-bottom: 10px;
 }
 
 .d-item {
@@ -328,4 +312,3 @@ export default {
   right: -10px;
 }
 </style>
-  

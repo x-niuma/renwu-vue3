@@ -25,7 +25,7 @@ import * as api from '@/service/project'
 import { onMounted, ref } from 'vue'
 
 const scrollbar = ref(null as any);
-const mySwiper = ref(null);
+const mySwiper = ref(null as any);
 
 const list = ref([] as any[]);
 const activeIndex = ref(0);
@@ -76,12 +76,10 @@ onMounted(async () => {
   flex: 1;
   width: 100%;
   overflow: hidden;
-
   .mySwiper {
     height: 100%;
     transition-timing-function: ease;
   }
-
   .swiper-slider {
     overflow: auto;
     height: 100%;

@@ -2,7 +2,7 @@
   <div class="wrapper view-login">
     <div class="form">
       <div v-if="authType==LOGIN_TYPE">
-        <van-field class="form-item" v-model="email" placeholder="电子邮箱" />
+        <van-field class="form-item" v-model="email" placeholder="登录账户" />
         <van-field class="form-item" v-model="password" placeholder="登录密码" type="password"/>
       </div>
       <div v-else>

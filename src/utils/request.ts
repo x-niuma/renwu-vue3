@@ -2,6 +2,7 @@ import { getToken } from '@/utils/auth'
 import axios, { AxiosHeaders } from 'axios'
 import type { AxiosRequestConfig, InternalAxiosRequestConfig } from 'axios'
 import { host } from './config'
+import type { IBaseRes } from '@/types/IBaseRes'
 
 export const _instance = axios.create({
   timeout: 20 * 1000
@@ -42,5 +43,5 @@ _instance.interceptors.response.use(
 )
 
 export const request = <T>(options: AxiosRequestConfig) => {
-  return _instance(options) as Promise<T>
+  return _instance(options) as Promise<IBaseRes<T>>
 }
