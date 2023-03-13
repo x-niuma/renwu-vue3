@@ -179,7 +179,8 @@ export const logout = (params: {}) => {
 }
 
 export interface CheckLoginRes {
-
+  status: boolean;
+  user: undefined;
 }
 
 export const checkLogin = (params: {}) => {

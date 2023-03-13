@@ -129,7 +129,8 @@ export interface LoginRes {
 }
 
 export interface CheckLoginRes {
-
+  status: boolean;
+  user: undefined;
 }
 
 export interface GetUserInfoRes {
