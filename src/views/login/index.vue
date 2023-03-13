@@ -53,8 +53,8 @@ const route = useRoute()
 
 const LOGIN_TYPE = 1
 const REGISTER_TYPE = 2
-const account = ref('')
-const password = ref('')
+const account = ref('dev_01')
+const password = ref('123456')
 const authType = ref(LOGIN_TYPE)
 const code = ref('')
 const loading = ref(false)
