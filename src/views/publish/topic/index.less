@@ -1,0 +1,85 @@
+@import '../../../assets/styles/vars';
+
+.view {
+  padding-bottom: 50px;
+  .footer {
+    z-index: 100;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+}
+
+.ui-flex {
+  display: flex;
+  align-items: center;
+  /deep/ .van-cell__value {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+}
+
+.error-list {
+  padding: 14px 20px;
+  font-size: 14px;
+  color: #999;
+}
+
+// 图片上传
+.upload-wrap {
+  float: left;
+  padding: 20px 0;
+  padding-left: 10px;
+  /deep/ .van-uploader__input,
+  /deep/ .van-uploader__wrapper,
+  /deep/ .van-uploader__input-wrapper {
+    width: 80px;
+    height: 80px;
+  }
+  .touch-area,
+  .pre-item {
+    display: inline-flex;
+    justify-content: center;
+    float: left;
+    width: 80px;
+    height: 80px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #eee;
+  }
+  .icon-add {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    left: 50%;
+    top: 50%;
+    transform: translate3d(-50%, -50%, 0);
+  }
+  .icon-remove {
+    z-index: 25;
+    position: absolute;
+    right: 0;
+    top: -10px;
+    display: block;
+    width: 12px;
+    height: 12px;
+    padding: 2px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    background-color: #333;
+    border-radius: 50%;
+  }
+  .preview-box {
+    position: relative;
+    float: left;
+  }
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+}

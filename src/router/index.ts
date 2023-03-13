@@ -8,6 +8,7 @@ import LoginView from '@/views/login/index.vue'
 import UserRankView from '@/views/rank/index.vue'
 import ProjectDetail from '@/views/project-detail/index.vue';
 import MeUserInfo from '@/views/me/user-info/index.vue';
+import PublishView from '@/views/publish/demand/index.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -20,7 +21,7 @@ const router = createRouter({
     {
       path: '/find',
       name: 'find',
-      component: FindView
+      component: PublishView
     },
     {
       path: '/me',
@@ -49,6 +50,11 @@ const router = createRouter({
       path: '/project-detail',
       name: 'project-detail',
       component: ProjectDetail
+    },
+    {
+      path: '/publish',
+      name: 'publish',
+      component: PublishView
     },
     {
       path: "/:pathMatch(.*)*",
