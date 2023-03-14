@@ -2,10 +2,10 @@
   <van-popup v-model:show="isShow" round position="bottom">
     <van-picker
       :loading="loading"
-      ref="picker"
+      ref="pickerRef"
       class="picker"
       show-toolbar
-      :title="title"
+      title="选择项目分类"
       :columns="list"
       value-key="name"
       @cancel="onCancel"
@@ -15,42 +15,34 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted, toRaw, defineProps, watch } from 'vue'
-import * as ProjectAPI from '@/auto-service/项目模块'
+import { ref, onMounted, toRaw } from 'vue'
+import * as ProjectAPI from '@/service/auto-service/项目模块'
+import type { PickerInstance, PickerOption } from 'vant'
 
-const props = defineProps({
-  value: {
-    type: Boolean,
-    default: false
-  },
-  title: {
-    type: String,
-    default: '选择应用类型'
-  }
-})
+export interface ICityPicker {
+  show: () => void
+  hide: () => void
+  getSelectedOptions: () => PickerOption[]
+}
 
 const emit = defineEmits(['confirm', 'cancel'])
-
-const isShow = ref(props.value)
+const pickerRef = ref<PickerInstance>()
+const isShow = ref(false)
 const loading = ref(false)
 const list = ref([])
 
-const onCancel = () => {
-  isShow.value = false
-  emit('cancel')
+const hide = () => (isShow.value = false)
+const show = () => (isShow.value = true)
+const getSelectedOptions = () => pickerRef.value?.getSelectedOptions() as PickerOption[]
+const onCancel = () => hide()
+
+const onConfirm = () => {
+  hide()
+  emit('confirm', toRaw(getSelectedOptions()))
 }
 
-const onConfirm = (data) => {
-  isShow.value = true
-  emit('confirm', toRaw(data.selectedOptions[0]))
-}
-
-watch(
-  () => props.value,
-  (v) => {
-    isShow.value = v
-  }
-)
+const exposed = { show, hide, getSelectedOptions }
+defineExpose<ICityPicker>(exposed)
 
 onMounted(() => {
   loading.value = true

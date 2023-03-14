@@ -13,11 +13,7 @@
         :is-link="true"
         @click.native="showCategoryPicker"
       />
-      <CategoryPicker
-        :value="isShowCategoryPicker"
-        @cancel="hideCategoryPicker"
-        @confirm="confirmCategoryPicker"
-      />
+      <CategoryPicker ref="categoryRef" @confirm="confirmCategoryPicker" />
 
       <van-field
         v-model="form.task_type_name"
@@ -27,21 +23,39 @@
         @click.native="showTaskTypePicker"
       />
       <TaskTypePicker
-        :value="isShowTaskTypePicker"
+        ref="taskTypePicker"
         :columns="taskTypeColumn"
-        @cancel="hideTaskTypePicker"
         @confirm="confirmTaskTypePicker"
       />
+
+      <van-field
+        v-model="form.city"
+        placeholder="所在城市"
+        :readonly="true"
+        :is-link="true"
+        @click.native="cityClickHandler"
+      />
+      <CityPicker ref="cityPicker" @confirm="confirmCityPicker" />
+
+      <ImagePicker ref="imagePickerRef" />
+    </div>
+
+    <!-- 提交按钮 -->
+    <div class="footer">
+      <van-button size="large" type="primary" @click="handleSubmit">
+        <span>提交</span>
+      </van-button>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import { Toast } from 'vant'
-import * as qiniu from 'qiniu-js'
+import type { PickerOption } from 'vant'
 import CategoryPicker from './category-picker/index.vue'
 import TaskTypePicker from './task-type-picker/index.vue'
+import CityPicker, { type ICityPicker } from './city-picker/index.vue'
+import ImagePicker, { type ImagePickerRef } from './image-picker/index.vue'
 
 const taskTypeColumn = [
   {
@@ -60,33 +74,47 @@ const form = ref({
   city: '',
   description: '',
   requires: '',
-  category_id: '' as unknown as number,
+  category_id: '',
   category_name: '',
-  task_type: '' as unknown as number,
+  task_type: '',
   task_type_name: ''
 })
 
-const currentCategory = ref<null | { text: string; value: number }>(null)
-const isShowCategoryPicker = ref(false)
-const showCategoryPicker = () => (isShowCategoryPicker.value = true)
-const hideCategoryPicker = () => (isShowCategoryPicker.value = false)
-const confirmCategoryPicker = (v: { text: string; value: number }) => {
-  hideCategoryPicker()
+const handleSubmit = () => {}
+
+// 选择项目分类
+const categoryRef = ref<ICityPicker | null>(null)
+const currentCategory = ref<null | PickerOption>(null)
+const showCategoryPicker = () => categoryRef.value?.show()
+const confirmCategoryPicker = (list: PickerOption[]) => {
+  const v = list[0]
   currentCategory.value = v
-  form.value.category_id = v.value
-  form.value.category_name = v.text
+  form.value.category_id = `${v.value}`
+  form.value.category_name = `${v.text}`
 }
 
-const currentTaskType = ref<null | { text: string; value: number }>(null)
-const isShowTaskTypePicker = ref(false)
-const showTaskTypePicker = () => (isShowTaskTypePicker.value = true)
-const hideTaskTypePicker = () => (isShowTaskTypePicker.value = false)
-const confirmTaskTypePicker = (v: { text: string; value: number }) => {
-  hideTaskTypePicker()
+// 选择任务类型
+const taskTypePicker = ref<ICityPicker | null>(null)
+const currentTaskType = ref<null | PickerOption>(null)
+const showTaskTypePicker = () => taskTypePicker.value?.show()
+const confirmTaskTypePicker = (list: PickerOption[]) => {
+  const v = list[0]
   currentTaskType.value = v
-  form.value.task_type = v.value
-  form.value.task_type_name = v.text
+  form.value.task_type = `${v.value}`
+  form.value.task_type_name = `${v.text}`
 }
+
+// 选择服务城市
+const cityPicker = ref<ICityPicker | null>(null)
+const cityClickHandler = () => cityPicker.value?.show()
+const currentCity = ref<PickerOption[]>([])
+const confirmCityPicker = (data: PickerOption[]) => {
+  currentCity.value = data
+  form.value.city = data.map((it) => it.text).join(' ')
+}
+
+// 选择图片
+const imagePickerRef = ref<null | ImagePickerRef>()
 </script>
 
 <style lang="less" scoped src="./index.less"></style>

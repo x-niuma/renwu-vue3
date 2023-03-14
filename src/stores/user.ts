@@ -1,9 +1,9 @@
 import { getToken, getUserInfo } from "@/utils/auth";
 import { defineStore, acceptHMRUpdate } from "pinia";
 import * as store from "store";
-import * as UserAPI from "@/auto-service/账户模块";
+import * as UserAPI from "@/service/auto-service/账户模块";
 import { sleep } from "@/utils/sleep";
-import type { PwdLoginDto } from "@/auto-service/types";
+import type { PwdLoginDto } from "@/service/auto-service/types";
 
 export const useUserStore = defineStore("user", {
   state: () => ({

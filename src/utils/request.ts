@@ -14,11 +14,9 @@ _instance.interceptors.request.use(
     if (getToken()) {
       headers.set('token', getToken())
     }
-
     return {
       ...config,
       url: `${host}${config.url}`,
-      method: 'POST',
       headers
     }
   },
@@ -43,5 +41,12 @@ _instance.interceptors.response.use(
 )
 
 export const request = <T>(options: AxiosRequestConfig) => {
+  return _instance(options) as Promise<IBaseRes<T>>
+}
+
+export const baseRequest = <T>(options: AxiosRequestConfig) => {
+  const _instance = axios.create({
+    timeout: 20 * 1000
+  })
   return _instance(options) as Promise<IBaseRes<T>>
 }

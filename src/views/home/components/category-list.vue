@@ -10,7 +10,7 @@
 
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue'
-import * as projectService from '@/auto-service/项目模块'
+import * as projectService from '@/service/auto-service/项目模块'
 
 const emit = defineEmits(['change'])
 const menuList = ref([] as any[])

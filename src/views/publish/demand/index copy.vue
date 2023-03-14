@@ -1,71 +1,9 @@
 <template>
   <div class="view">
     <div class="content" v-if="true">
-      <van-field v-model="form.title" placeholder="标题(搜索的关键词)" />
-      <van-field v-model="form.reward" placeholder="悬赏金额(单位为元)" />
-      <van-field v-model="form.requires" placeholder="您对竞标者的要求" />
-      <van-field v-model="form.description" placeholder="需求描述" type="textarea" />
-
-      <van-field
-        v-model="form.appType"
-        placeholder="应用类型"
-        :readonly="true"
-        :is-link="true"
-        @click.native="showCategoryPicker=true"
-      />
-      <AppTypePicker
-        v-model="showCategoryPicker"
-        @cancel="showCategoryPicker=false"
-        @confirm="handleConfirmAppType"
-      />
-
-      <van-field
-        v-model="form.projectType"
-        placeholder="项目类型"
-        :readonly="true"
-        :is-link="true"
-        @click.native="showProjectAppPicker=true"
-      />
-
-      <ProjectTypePicker
-        v-model="showProjectAppPicker"
-        @cancel="showProjectAppPicker=false"
-        @confirm="handleConfirmProjectType"
-      />
-
-      <van-field
-        v-model="form.city"
-        placeholder="完成需求所在的城市"
-        :readonly="true"
-        :is-link="true"
-        @click.native="showCityPicker=true"
-      />
-      <CityPicker v-model="showCityPicker" @on-confirm="onCityChange" />
-
-      <div class="upload-wrap">
-        <div class="preview-box" v-for="(item, index) in pickList" :key="index">
-          <img class="pre-item" :src="item.content" />
-          <div @click="removeItem(index)">
-            <div class="progress" v-if="item.percent">{{ item.percent.toFixed(0) }}%</div>
-            <img class="icon-remove" src="./img/remove.png" alt="图片" />
-          </div>
-        </div>
-        <van-uploader class="touch-area" :after-read="onRead">
-          <template v-show="pickList.length === 0">
-            <img class="icon-add" src="./img/add.png" />
-          </template>
-        </van-uploader>
-      </div>
       <van-cell class="ui-flex" title="是否上架">
         <van-switch v-model="checked" />
       </van-cell>
-    </div>
-
-    <!-- 提交按钮 -->
-    <div class="footer">
-      <van-button  size="large" type="primary" @click="handleSubmit">
-        <span>提交</span>
-      </van-button>
     </div>
 
     <van-dialog v-model="showFormError" title="您提交的参数不规范">
@@ -79,20 +17,8 @@
 <script>
 import { Toast } from 'vant'
 import * as qiniu from 'qiniu-js'
-// import API from '../../../api'
-import CityPicker from './city-picker/index.vue'
-import CategoryPicker from './category-picker/index.vue'
-import AppTypePicker from './app-type-picker/index.vue';
-import ProjectTypePicker from './project-type-picker/index.vue'
 
 export default {
-  components: {
-    CityPicker,
-    CategoryPicker,
-    AppTypePicker,
-    ProjectTypePicker
-  },
-
   data() {
     return {
       tabIndex: 0,
@@ -126,64 +52,14 @@ export default {
     }
   },
 
-  computed: {
-    categoryName() {
-      // const findIndex = this.categoryList.findIndex(element => +element.id === +this.form.categoryId)
-      // if (findIndex !== -1) {
-      //   return this.categoryList[findIndex].name
-      // } else {
-      //   return ''
-      // }
-    }
-  },
 
   mounted() {
-    this.doGet7nToken()
     if (this.$route.query.itemId) {
       this.doGetXzProductItem()
     }
   },
 
   methods: {
-    // 确认应用类型
-    handleConfirmAppType(obj) {
-      this.showCategoryPicker = false
-      this.form.appType = obj.name
-      this.form.appTypeId = obj.id
-    },
-
-    // 确认项目类型
-    handleConfirmProjectType(obj) {
-      this.showProjectAppPicker = false
-      this.form.projectType = obj.label
-      this.form.projectTypeId = obj.id
-    },
-
-    // 选择图片
-    onRead(file) {
-      this.pickList.push(file)
-      this.uploadImg(this.pickList.length - 1, file.file)
-    },
-
-    // 删除图片
-    removeItem(index) {
-      this.pickList.splice(index, 1)
-    },
-
-    // 获取七牛云token
-    async doGet7nToken() {
-      // try {
-      //   let ret = await API.get7nToken()
-      //   if (+ret.errCode === 0) {
-      //     this.token = ret.data.token
-      //   } else {
-      //     Toast(ret.errMsg)
-      //   }
-      // } catch (error) {
-      //   console.log(error)
-      // }
-    },
-
     // 获取商品信息
     async doGetXzProductItem() {
       // try {
@@ -212,27 +88,6 @@ export default {
       // } catch (error) {
       //   console.log(error)
       // }
-    },
-
-    // 上传图片
-    uploadImg(index, file, callback) {
-      const vm = this
-      const observable = qiniu.upload(file, file.name, this.token, {}, {})
-      observable.subscribe({
-        next(res) {
-          vm.pickList[index]['percent'] = res.total.percent
-          vm.pickList = [].concat(vm.pickList)
-        },
-        error(error) {
-          vm.pickList[index]['percent'] = ''
-          Toast(error)
-        },
-        complete(res) {
-          vm.pickList[index]['url'] = `//c1.airtlab.com/${res.key}`
-          vm.pickList[index]['percent'] = ''
-          vm.pickList = [].concat(vm.pickList)
-        }
-      })
     },
 
     // 创建
@@ -317,28 +172,7 @@ export default {
         //   this.doCreateProduct()
         // }
       }
-    },
-
-    // 选择分类
-    onCategoryChange(data) {
-      this.categoryValue = data
-      this.form.categoryId = data.id
-      this.form.categoryName = data.name
-      this.showCategoryPicker = false
-    },
-
-
-    // 选择所在城市
-    onCityChange(data) {
-      this.cityPickerValue = data
-      let values = []
-      data.forEach(element => {
-        values.push(element.name)
-      })
-      this.form.city = values.join(' ')
     }
   }
 }
 </script>
-
-<style lang="less" scoped src="./index.less"></style>

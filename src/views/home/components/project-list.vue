@@ -63,14 +63,14 @@
 </template>
 
 <script lang="ts" setup>
-import * as projectService from '@/auto-service/项目模块'
+import * as projectService from '@/service/auto-service/项目模块'
 import Loading from '@/components/loading/index.vue'
 import NoneData from '@/components/none-data/index.vue'
 import InlineTag from '@/components/inline-tag/index.vue'
 import avatar from '@/assets/img/avatar.png'
 import { ref, onMounted, watch } from 'vue'
 import { useRouter } from 'vue-router'
-import type { ProjectListVo } from '@/auto-service/types'
+import type { ProjectListVo } from '@/service/auto-service/types'
 
 const props = defineProps({
   appTypeId: {

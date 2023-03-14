@@ -1,9 +1,9 @@
 import { request } from "@/utils/request";
 
-export const file = (params: {}) => {
+export const getCity = (params: {}) => {
   return request<{}>({
-    url: "/upload/file",
-    method: "POST",
+    url: "/static/city.json",
+    method: "GET",
     data: params
   });
 }
