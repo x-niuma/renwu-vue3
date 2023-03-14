@@ -325,9 +325,33 @@ export interface CreateProjectDTO {
   remark?: string;
   reward?: number;
   images?: string;
+  city?: string;
+  city_code?: string;
   category_id?: number;
   task_type?: number;
   task_type_name?: string;
+}
+
+export interface CreateProjectDTO {
+  id?: number;
+  create_time?: string;
+  update_time?: string;
+  user_id?: number;
+  title?: string;
+  skill?: string;
+  description?: string;
+  remark?: string;
+  reward?: number;
+  images?: string;
+  city?: string;
+  city_code?: string;
+  category_id?: number;
+  task_type?: number;
+  task_type_name?: string;
+}
+
+export interface ProjectUpdateVo {
+  status: boolean;
 }
 
 export interface QueryProjectDTO {
@@ -336,9 +360,10 @@ export interface QueryProjectDTO {
   title?: string;
   task_type?: string;
   category_id?: string;
+  id?: number;
 }
 
-export interface ProjectItem {
+export interface ProjectItemVo {
   id: number;
   create_time: string;
   update_time: string;
@@ -349,6 +374,8 @@ export interface ProjectItem {
   remark: string;
   reward: number;
   images: string;
+  city: string;
+  city_code: string;
   category_id: number;
   task_type: number;
   task_type_name: string;
@@ -370,6 +397,8 @@ export interface ProjectListVo {
   remark: string;
   reward: number;
   images: string;
+  city: string;
+  city_code: string;
   category_id: number;
   task_type: number;
   task_type_name: string;
@@ -377,5 +406,30 @@ export interface ProjectListVo {
   author_name: string;
   author_avatar: string;
 }[];
+}
+
+export interface QueryProjectDetailDTO {
+  id: number;
+}
+
+export interface ProjectItemVo {
+  id: number;
+  create_time: string;
+  update_time: string;
+  user_id: number;
+  title: string;
+  skill: string;
+  description: string;
+  remark: string;
+  reward: number;
+  images: string;
+  city: string;
+  city_code: string;
+  category_id: number;
+  task_type: number;
+  task_type_name: string;
+  category_name: string;
+  author_name: string;
+  author_avatar: string;
 }
 

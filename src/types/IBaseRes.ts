@@ -1,5 +1,5 @@
 export interface IBaseRes<T> {
-  code: number;
+  code: string;
   msg: string;
   data: T;
 }

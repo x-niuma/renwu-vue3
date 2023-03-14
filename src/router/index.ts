@@ -6,7 +6,8 @@ import MeView from '@/views/me/index.vue'
 import MissView from '@/views/miss/index.vue'
 import LoginView from '@/views/login/index.vue'
 import UserRankView from '@/views/rank/index.vue'
-import ProjectDetail from '@/views/project-detail/index.vue';
+import ProjectDetail from '@/views/project/detail/index.vue';
+import ProjectEdit from '@/views/project/edit/index.vue';
 import MeUserInfo from '@/views/me/user-info/index.vue';
 import PublishView from '@/views/publish/demand/index.vue';
 
@@ -50,6 +51,11 @@ const router = createRouter({
       path: '/project-detail',
       name: 'project-detail',
       component: ProjectDetail
+    },
+    {
+      path: '/project-edit',
+      name: 'project-edit',
+      component: ProjectEdit
     },
     {
       path: '/publish',
