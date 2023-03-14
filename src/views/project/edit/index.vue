@@ -20,7 +20,7 @@ const detail = ref<null | ProjectItemVo>(null)
 onMounted(() => {
   loading.value = true;
   queryDetail({
-    id: Number(route.query.id)
+    id: Number(route.query.id),
   }).then((res) => {
     loading.value = false;
     detail.value = res.data

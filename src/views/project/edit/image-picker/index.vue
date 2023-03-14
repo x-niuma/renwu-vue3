@@ -7,16 +7,19 @@
 <script lang="ts" setup>
 import type { UploaderFileListItem } from 'vant'
 import * as qiniu from 'qiniu-js'
-import { ref, onMounted, defineExpose } from 'vue'
+import { ref, defineProps, onMounted, defineExpose } from 'vue'
 import { get7niuToken } from '@/service/auto-service/上传模块'
 
 export interface ImagePickerRef {
   getValue: () => string[]
 }
 
-const uploadToken = ref('')
-const fileList = ref<UploaderFileListItem[]>([])
+const props = defineProps<{
+  defaultValue?: {url:string}[]
+}>()
 
+const uploadToken = ref('')
+const fileList = ref<UploaderFileListItem[]>(props.defaultValue?.length ? props.defaultValue.map((it) => it) : [])
 const afterRead = (file: UploaderFileListItem) => {
   upload(file)
 }

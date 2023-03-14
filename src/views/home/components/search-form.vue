@@ -56,7 +56,7 @@ const localValue = ref(props.value);
 
 const goBack = () => router.go(-1)
 const goRank = () => router.push('/user-rank')
-const goSearch = () => router.push('/search')
+const goSearch = () => router.push('/project-search')
 
 watch(localValue, (val) => {
   $emit('input', val);

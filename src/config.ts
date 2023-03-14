@@ -10,7 +10,7 @@ export const tabbar = [
     span: '发现',
     icon: 'add',
     activeIcon: 'friends-o',
-    path: '/find',
+    path: '/publish',
     replace: false
   },
   {
@@ -22,10 +22,8 @@ export const tabbar = [
   }
 ]
 
-export const isProd = process.env.NODE_ENV === 'production';
+export const isProd = process.env.NODE_ENV !== 'production';
 
-export const host = isProd
-  ? 'http://task.airtlab.com'
+export const host = !isProd
+  ? 'http://localhost:7000'
   : 'http://task.airtlab.com';
-
-// export const host = 'http://localhost:7000'

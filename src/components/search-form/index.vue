@@ -1,7 +1,7 @@
 <template>
   <div class="search-bar">
     <i class="iconfont icon-back icon-arrow-left" v-if="showBack" @click="goBack" />
-    <div class="form" @click="$router.push('/search')" v-if="!isField">
+    <div class="form" @click="$router.push('/project-search')" v-if="!isField">
       <i slot="left-icon" class="iconfont icon-search"></i>
       <span class="input">{{ placeholder }}</span>
     </div>

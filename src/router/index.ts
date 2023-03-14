@@ -9,8 +9,8 @@ import UserRankView from '@/views/rank/index.vue'
 import ProjectDetail from '@/views/project/detail/index.vue';
 import ProjectEdit from '@/views/project/edit/index.vue';
 import ProjectAdd from '@/views/project/edit/add.vue';
+import ProjectSearch from '@/views/project/search/index.vue';
 import MeUserInfo from '@/views/me/user-info/index.vue';
-import PublishView from '@/views/publish/demand/index.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -21,8 +21,8 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/find',
-      name: 'find',
+      path: '/publish',
+      name: 'publish',
       component: ProjectAdd
     },
     {
@@ -59,9 +59,9 @@ const router = createRouter({
       component: ProjectEdit
     },
     {
-      path: '/publish',
-      name: 'publish',
-      component: PublishView
+      path: '/project-search',
+      name: 'project-search',
+      component: ProjectSearch
     },
     {
       path: "/:pathMatch(.*)*",

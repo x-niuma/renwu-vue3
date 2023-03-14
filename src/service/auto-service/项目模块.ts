@@ -158,6 +158,6 @@ export const queryDetail = (params: QueryProjectDetailDTO) => {
   return request<ProjectItemVo>({
     url: "/project/queryDetail",
     method: "POST",
-    data: params
+    data: params,
   });
 }

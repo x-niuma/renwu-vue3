@@ -13,6 +13,7 @@ _instance.interceptors.request.use(
     const headers = new AxiosHeaders(config.headers)
     if (getToken()) {
       headers.set('token', getToken())
+      headers.set('Content-Type', 'application/json; charset=utf-8')
     }
     return {
       ...config,
