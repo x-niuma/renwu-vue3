@@ -8,10 +8,11 @@
           :icon="item.icon"
           :badge="item.dot"
           v-if="item.dot"
+          :replace="item.replace"
         >
           {{ item.span }}
         </van-tabbar-item>
-        <van-tabbar-item replace :to="item.path" :icon="item.icon" v-else>
+        <van-tabbar-item :replace="item.replace" :to="item.path" :icon="item.icon" v-else>
           {{ item.span }}
         </van-tabbar-item>
       </template>
@@ -31,6 +32,7 @@ interface IMenu {
   activeIcon: string
   path: string
   dot?: number
+  replace?: boolean
 }
 
 export default defineComponent({

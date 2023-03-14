@@ -61,8 +61,8 @@ import * as ProjectAPI from '@/service/auto-service/项目模块'
 import type { CreateProjectDTO } from '@/service/auto-service/types'
 
 const props = defineProps<{
-  isEdit: boolean
-  detail: ProjectItemVo
+  isEdit?: boolean
+  detail?: ProjectItemVo
 }>()
 
 const taskTypeColumn = [
@@ -133,9 +133,11 @@ const imagePickerRef = ref<null | ImagePickerRef>()
 
 // 创建项目
 const doAdd = async () => {
-  submitLoading.value = true
+  submitLoading.value = true;
+  const params: CreateProjectDTO = toRaw(form.value) as CreateProjectDTO;
+  params.images = imagePickerRef.value?.getValue().join(',')
   try {
-    const res = await ProjectAPI.create(toRaw(form.value) as CreateProjectDTO)
+    const res = await ProjectAPI.create(params)
     if (res.code === '0') {
       showSuccessToast('操作成功')
     }

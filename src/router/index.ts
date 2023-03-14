@@ -8,6 +8,7 @@ import LoginView from '@/views/login/index.vue'
 import UserRankView from '@/views/rank/index.vue'
 import ProjectDetail from '@/views/project/detail/index.vue';
 import ProjectEdit from '@/views/project/edit/index.vue';
+import ProjectAdd from '@/views/project/edit/add.vue';
 import MeUserInfo from '@/views/me/user-info/index.vue';
 import PublishView from '@/views/publish/demand/index.vue';
 
@@ -22,7 +23,7 @@ const router = createRouter({
     {
       path: '/find',
       name: 'find',
-      component: PublishView
+      component: ProjectAdd
     },
     {
       path: '/me',

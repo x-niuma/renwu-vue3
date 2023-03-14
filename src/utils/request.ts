@@ -1,7 +1,7 @@
 import { getToken } from '@/utils/auth'
 import axios, { AxiosHeaders } from 'axios'
 import type { AxiosRequestConfig, InternalAxiosRequestConfig } from 'axios'
-import { host } from './config'
+import { host } from '@/config'
 import type { IBaseRes } from '@/types/IBaseRes'
 
 export const _instance = axios.create({
