@@ -5,10 +5,6 @@
   --van-button-large-height: 44px;
 }
 
-/* @media (prefers-color-scheme: dark) {
-  :root {}
-} */
-
 *,
 *::before,
 *::after {
@@ -41,4 +37,12 @@ body {
 .ui-flex {
   display: flex;
   align-items: center;
+}
+
+.van-nav-bar__left {
+  padding-left: 10px;
+}
+
+.van-nav-bar__left  .van-icon {
+  font-size: 18px;
 }
