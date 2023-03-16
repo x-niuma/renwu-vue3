@@ -12,6 +12,7 @@ import * as ProjectAPI from '@/service/auto-service/项目模块'
 import BaseInfo from './components/base-info/index.vue'
 import EnrollPerson from './components/enroll-person/index.vue'
 import Page from '@/components/page/index.vue'
+import * as CommentAPI from '@/service/auto-service/评论模块';
 
 const route = useRoute()
 const enrolls = ref([] as any[])
@@ -27,6 +28,11 @@ const getDetails = async () => {
 const getEnrolls = async () => {
   // let res = await ProjectAPI.getOrderList()
   // enrolls.value = res.data.list;
+  CommentAPI.queryCommentList({
+    topic_type: 'feed'
+  }).then((res) => {
+    console.log(res)
+  })
 }
 
 onMounted(() => {
