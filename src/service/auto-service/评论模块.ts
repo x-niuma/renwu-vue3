@@ -4,6 +4,7 @@ export interface QueryCommentListDTO {
   pageSize?: number;
   pageIndex?: number;
   topic_type: string;
+  topic_id: number;
 }
 
 export interface QueryCommentListVo {

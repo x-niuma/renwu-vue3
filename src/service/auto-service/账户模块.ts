@@ -25,6 +25,7 @@ export interface RegisterRes {
   background: string;
   status: boolean;
   token: string;
+  reputation: number;
 }
 
 export const register = (params: RegisterDto) => {
@@ -58,6 +59,7 @@ export interface RegisterRes {
   background: string;
   status: boolean;
   token: string;
+  reputation: number;
 }
 
 export const registerByAccount = (params: RegisterByAccountDto) => {
@@ -94,6 +96,7 @@ export interface LoginRes {
   background: string;
   status: boolean;
   token: string;
+  reputation: number;
 }
 
 export const login = (params: LoginDto) => {
@@ -127,6 +130,7 @@ export interface LoginRes {
   background: string;
   status: boolean;
   token: string;
+  reputation: number;
 }
 
 export const pwdLogin = (params: PwdLoginDto) => {
@@ -160,6 +164,7 @@ export interface LoginRes {
   background: string;
   status: boolean;
   token: string;
+  reputation: number;
 }
 
 export const codeLogin = (params: CodeLoginDTO) => {
@@ -275,6 +280,30 @@ export const updatePassword = (params: UpdatePasswordDto) => {
   return request<UpdatePwdRes>({
     url: "/account/updatePassword",
     method: "POST",
+    data: params
+  });
+}
+
+export const queryWxLoginResult = (params: {}) => {
+  return request<{}>({
+    url: "/account/queryWxLoginResult",
+    method: "POST",
+    data: params
+  });
+}
+
+export const getWxQrCodeForAuthCode = (params: {}) => {
+  return request<{}>({
+    url: "/account/getWxQrCodeForAuthCode",
+    method: "POST",
+    data: params
+  });
+}
+
+export const wxLoginByAuthCode = (params: {}) => {
+  return request<{}>({
+    url: "/account/wxLoginByAuthCode",
+    method: "GET",
     data: params
   });
 }

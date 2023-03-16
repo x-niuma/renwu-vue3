@@ -2,7 +2,19 @@
   "extends": "./tsconfig.app.json",
   "exclude": [],
   "compilerOptions": {
+    "experimentalDecorators": true,
+    "strictPropertyInitialization": false,
+    "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "allowJs": true,
+    "strictBindCallApply": false,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false,
     "composite": true,
+    "emitDecoratorMetadata": true,
+    "allowSyntheticDefaultImports": true,
     "lib": [],
     "types": ["node", "jsdom"]
   }

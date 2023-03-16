@@ -23,6 +23,7 @@ export interface RegisterRes {
   background: string;
   status: boolean;
   token: string;
+  reputation: number;
 }
 
 export interface RegisterByAccountDto {
@@ -48,6 +49,7 @@ export interface RegisterRes {
   background: string;
   status: boolean;
   token: string;
+  reputation: number;
 }
 
 export interface LoginDto {
@@ -76,6 +78,7 @@ export interface LoginRes {
   background: string;
   status: boolean;
   token: string;
+  reputation: number;
 }
 
 export interface PwdLoginDto {
@@ -101,6 +104,7 @@ export interface LoginRes {
   background: string;
   status: boolean;
   token: string;
+  reputation: number;
 }
 
 export interface CodeLoginDTO {
@@ -126,6 +130,7 @@ export interface LoginRes {
   background: string;
   status: boolean;
   token: string;
+  reputation: number;
 }
 
 export interface CheckLoginRes {
@@ -185,6 +190,7 @@ export interface QueryCommentListDTO {
   pageSize?: number;
   pageIndex?: number;
   topic_type: string;
+  topic_id: number;
 }
 
 export interface CommentItemVo {
@@ -431,5 +437,26 @@ export interface ProjectItemVo {
   category_name: string;
   author_name: string;
   author_avatar: string;
+}
+
+export interface AddrQueryListDTO {
+  pageSize?: number;
+  pageIndex?: number;
+}
+
+export interface AddrItemQueryDTO {
+
+}
+
+export interface AddrAddDTO {
+
+}
+
+export interface AddrDeleteDTO {
+
+}
+
+export interface AddrUpdateDTO {
+
 }
 
