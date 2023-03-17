@@ -18,6 +18,7 @@ export interface QueryCommentListVo {
   images: string;
   author_name: string;
   author_avatar: string;
+  reply_info: undefined;
 }[];
   total: number;
 }

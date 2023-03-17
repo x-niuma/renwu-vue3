@@ -24,33 +24,20 @@
             </div>
           </div>
         </div>
-        <div class="comment-child" v-if="item.reply_info.children && item.reply_info.children.length">
-          <ReplyItem
-            :level="1"
-            v-for="(child, childIndex) in item.children"
-            :item="child"
-            :key="childIndex"
-          />
-          <div class="load-more">
-            加载更多
-          </div>
-        </div>
       </div>
     </div>
   </template>
   
   <script lang="ts" setup>
-  import type { CommentItemVo } from '@/service/auto-service/types';
+  import type { ReplyItemVo } from '@/service/auto-service/types';
   import { defineProps } from 'vue';
-  import ReplyItem from './reply-item.vue';
   
   const props = defineProps<{
-    item: CommentItemVo
+    item: ReplyItemVo
   }>();
 
 const handleReply = () => {}
 
   </script>
   
-  
-  <style lang="less" scoped src="./index.less"></style>
+  <style lang="less" scoped src="./reply-item.less"></style>
