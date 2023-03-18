@@ -39,5 +39,3 @@ const isScroll = ref(false);
 const userInfo = ref({})
 const loadMoreEnrollList = () => {}
 </script>
-
-<style lang="less" scoped src="./index.less"></style>

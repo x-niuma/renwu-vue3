@@ -32,21 +32,7 @@ const getComments = async () => {
   comments.value = res.data.list
 }
 
-// const fetchReply = () => {
-//   loading.value = true;
-//   queryReplyList({
-//     comment_id: props.topic_id,
-//     pageSize: 5,
-//     skip: props.item.reply_info.list.length
-//   }).then((res) => {
-//     console.log(res)
-//     loading.value = false;
-//   })
-// }
-
 onMounted(() => {
   getComments()
 })
 </script>
-
-<style lang="less" scoped src="./index.less"></style>

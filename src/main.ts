@@ -6,7 +6,7 @@ import router from './router'
 import 'vant/lib/index.css';
 import vant from 'vant';
 
-import './assets/style/main.css';
+import './assets/style/main.less';
 
 import infiniteScroll from 'vue-infinite-scroll'
 

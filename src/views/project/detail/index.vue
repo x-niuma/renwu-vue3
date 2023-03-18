@@ -1,8 +1,10 @@
 <template>
   <Page title="项目详情" v-if="detailData">
-    <BaseInfo :detail-data="detailData" />
-    <EnrollPerson :enroll-list="enrolls" />
-    <Comment :topic_id="projectId" />
+    <div class="page-project" >
+      <BaseInfo :detail-data="detailData" />
+      <EnrollPerson :enroll-list="enrolls" />
+      <Comment :topic_id="projectId" />
+    </div>
   </Page>
 </template>
 
@@ -33,4 +35,4 @@ onMounted(() => {
 })
 </script>
 
-<style lang="less" scoped src="./index.less"></style>
+<style lang="less" src="./index.less"></style>

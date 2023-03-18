@@ -1,10 +1,10 @@
 <template>
-  <div class="comment u-flex">
+  <div class="comment ui-flex ui-flex-jc-start ui-flex-align-start">
     <div class="side">
       <img class="avatar" :src="item.author_avatar" alt="" />
     </div>
     <div class="main">
-      <div class="u-flex comment-header">
+      <div class="ui-flex ui-flex-jc-start ui-flex-align-start comment-header">
         <div class="nickname">{{ item.author_name }}</div>
       </div>
       <div class="comment-body">
@@ -32,11 +32,9 @@
 import type { ReplyItemVo } from '@/service/auto-service/types'
 import { defineProps } from 'vue'
 
-const props = defineProps<{
+defineProps<{
   item: ReplyItemVo
 }>()
 
 const handleReply = () => {}
 </script>
-
-<style lang="less" scoped src="./reply-item.less"></style>
