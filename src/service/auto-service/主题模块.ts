@@ -50,6 +50,7 @@ export const create = (params: CreateFeedDTO) => {
 export interface QueryFeedDTO {
   pageSize?: number;
   pageIndex?: number;
+  skip?: number;
   title?: string;
   category_id?: string;
 }

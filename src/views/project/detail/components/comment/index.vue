@@ -5,31 +5,44 @@
     </div>
     <div class="floor__body">
       <div class="list">
-        <CommentItem v-for="(item, index) in comments" :key="index" :item="item" />
+        <CommentItem v-for="(item, index) in comments" :key="index" :item="item" :topic_id="topic_id" />
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { useRoute } from 'vue-router'
 import { ref, onMounted } from 'vue'
 import * as CommentAPI from '@/service/auto-service/评论模块'
 import { CommentTopicTypeEnum } from '@/types/enum'
 import type { CommentItemVo } from '@/service/auto-service/types'
 import CommentItem from './item.vue'
 
-const route = useRoute()
+const props = defineProps<{
+  topic_id: number;
+}>()
+
 const comments = ref<CommentItemVo[]>([])
-const projectId = Number(route.query.id)
 
 const getComments = async () => {
   const res = await CommentAPI.queryCommentList({
+    topic_id: props.topic_id,
     topic_type: CommentTopicTypeEnum.project,
-    topic_id: projectId
   })
   comments.value = res.data.list
 }
+
+// const fetchReply = () => {
+//   loading.value = true;
+//   queryReplyList({
+//     comment_id: props.topic_id,
+//     pageSize: 5,
+//     skip: props.item.reply_info.list.length
+//   }).then((res) => {
+//     console.log(res)
+//     loading.value = false;
+//   })
+// }
 
 onMounted(() => {
   getComments()

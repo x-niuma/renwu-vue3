@@ -3,6 +3,7 @@ import { request } from "@/utils/request";
 export interface QueryCommentListDTO {
   pageSize?: number;
   pageIndex?: number;
+  skip?: number;
   topic_type: string;
   topic_id: number;
 }
@@ -18,7 +19,24 @@ export interface QueryCommentListVo {
   images: string;
   author_name: string;
   author_avatar: string;
-  reply_info: undefined;
+  reply_info: {
+  list: {
+  id: number;
+  create_time: string;
+  update_time: string;
+  from_uid: number;
+  to_uid: number;
+  comment_id: number;
+  reply_type: string;
+  reply_id: number;
+  content: string;
+  images: string;
+  author_name: string;
+  author_avatar: string;
+}[];
+  total: number;
+  has_more: boolean;
+};
 }[];
   total: number;
 }
@@ -73,6 +91,7 @@ export const removeComment = (params: RemoveCommentDTO) => {
 export interface QueryReplyListDTO {
   pageSize?: number;
   pageIndex?: number;
+  skip?: number;
   comment_id: number;
 }
 

@@ -3,6 +3,7 @@ import { request } from "@/utils/request";
 export interface AddrQueryListDTO {
   pageSize?: number;
   pageIndex?: number;
+  skip?: number;
 }
 
 export const queryAddrList = (params: AddrQueryListDTO) => {

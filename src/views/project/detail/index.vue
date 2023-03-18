@@ -2,7 +2,7 @@
   <Page title="项目详情" v-if="detailData">
     <BaseInfo :detail-data="detailData" />
     <EnrollPerson :enroll-list="enrolls" />
-    <Comment />
+    <Comment :topic_id="projectId" />
   </Page>
 </template>
 

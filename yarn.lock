@@ -3371,10 +3371,10 @@ sigmund@^1.0.1:
   resolved "https://registry.npmjs.org/sigmund/-/sigmund-1.0.1.tgz#3ff21f198cad2175f9f3b781853fd94d0d19b590"
   integrity sha512-fCvEXfh6NWpm+YSuY2bpXb/VIihqWA6hLsgboC+0nl71Q7N7o2eaCW8mJa/NLvQhs6jpd3VZV4UiUQlV6+lc8g==
 
-sjta@^1.0.6:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/sjta/-/sjta-1.0.6.tgz#1048987d10a65635497b2b4151c372c2f7d70742"
-  integrity sha512-728rubFadr6qe1fqrVFaHQh290BXYzixyO6QHeKguop69WYQquFfnCWAgU/W9PdfMA/iFTchJOh6W40xPQVzfQ==
+sjta@^1.0.8:
+  version "1.0.8"
+  resolved "https://registry.npmjs.org/sjta/-/sjta-1.0.8.tgz#1f8be9737d53474a127d1c17b552f2bd0e0d2797"
+  integrity sha512-+R4fE0Jm7huXYqTjfM54YCk29UYkfI4y77DrfLBb7+j8Bwlkgj/Vx8C6IeBri86J29Mz19h7PNp5r31CBD1GBQ==
   dependencies:
     commander "^10.0.0"
     fs-extra "^11.1.0"

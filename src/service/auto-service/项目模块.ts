@@ -91,6 +91,7 @@ export const updateProject = (params: CreateProjectDTO) => {
 export interface QueryProjectDTO {
   pageSize?: number;
   pageIndex?: number;
+  skip?: number;
   title?: string;
   task_type?: string;
   category_id?: string;

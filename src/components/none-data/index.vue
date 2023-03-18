@@ -7,7 +7,7 @@
   
 <script lang="ts" setup>
 import { defineProps } from 'vue'
-const props = defineProps({
+defineProps({
   text: {
     type: String,
     default: '暂无数据'
@@ -26,7 +26,6 @@ const props = defineProps({
   align-items: center;
   font-size: 0px;
   padding-top: 40px;
-
   &--fixed {
     position: fixed;
     left: 50%;

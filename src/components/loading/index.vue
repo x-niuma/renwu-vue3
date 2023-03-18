@@ -3,17 +3,18 @@
     <p>{{ message }}</p>
   </div>
 </template>
-  
+
 <script setup lang="ts">
 import { defineProps } from 'vue'
-const props = defineProps({
+
+defineProps({
   message: {
     type: String,
     default: '加载中...'
   }
 })
 </script>
-  
+
 <style lang="less" scoped>
 p {
   line-height: 50px;
@@ -22,4 +23,3 @@ p {
   text-align: center;
 }
 </style>
-  

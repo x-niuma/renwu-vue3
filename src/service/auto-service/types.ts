@@ -189,8 +189,43 @@ export interface UpdatePwdRes {
 export interface QueryCommentListDTO {
   pageSize?: number;
   pageIndex?: number;
+  skip?: number;
   topic_type: string;
   topic_id: number;
+}
+
+export interface ReplyItemVo {
+  id: number;
+  create_time: string;
+  update_time: string;
+  from_uid: number;
+  to_uid: number;
+  comment_id: number;
+  reply_type: string;
+  reply_id: number;
+  content: string;
+  images: string;
+  author_name: string;
+  author_avatar: string;
+}
+
+export interface QueryReplyListVo {
+  list: {
+  id: number;
+  create_time: string;
+  update_time: string;
+  from_uid: number;
+  to_uid: number;
+  comment_id: number;
+  reply_type: string;
+  reply_id: number;
+  content: string;
+  images: string;
+  author_name: string;
+  author_avatar: string;
+}[];
+  total: number;
+  has_more: boolean;
 }
 
 export interface CommentItemVo {
@@ -203,7 +238,24 @@ export interface CommentItemVo {
   images: string;
   author_name: string;
   author_avatar: string;
-  reply_info: undefined;
+  reply_info: {
+  list: {
+  id: number;
+  create_time: string;
+  update_time: string;
+  from_uid: number;
+  to_uid: number;
+  comment_id: number;
+  reply_type: string;
+  reply_id: number;
+  content: string;
+  images: string;
+  author_name: string;
+  author_avatar: string;
+}[];
+  total: number;
+  has_more: boolean;
+};
 }
 
 export interface QueryCommentListVo {
@@ -217,7 +269,24 @@ export interface QueryCommentListVo {
   images: string;
   author_name: string;
   author_avatar: string;
-  reply_info: undefined;
+  reply_info: {
+  list: {
+  id: number;
+  create_time: string;
+  update_time: string;
+  from_uid: number;
+  to_uid: number;
+  comment_id: number;
+  reply_type: string;
+  reply_id: number;
+  content: string;
+  images: string;
+  author_name: string;
+  author_avatar: string;
+}[];
+  total: number;
+  has_more: boolean;
+};
 }[];
   total: number;
 }
@@ -248,6 +317,7 @@ export interface RemoveCommentDTO {
 export interface QueryReplyListDTO {
   pageSize?: number;
   pageIndex?: number;
+  skip?: number;
   comment_id: number;
 }
 
@@ -282,6 +352,7 @@ export interface CreateFeedDTO {
 export interface QueryFeedDTO {
   pageSize?: number;
   pageIndex?: number;
+  skip?: number;
   title?: string;
   category_id?: string;
 }
@@ -296,6 +367,7 @@ export interface SaveActionDTO {
 export interface QueryListForUserDTO {
   pageSize?: number;
   pageIndex?: number;
+  skip?: number;
   entity_type: number;
   action_type: number;
 }
@@ -309,6 +381,7 @@ export interface QueryStatusForUserDTO {
 export interface QueryCountForEntityDTO {
   pageSize?: number;
   pageIndex?: number;
+  skip?: number;
   entity_type: number;
   action_type: number;
   entity_id: number;
@@ -365,6 +438,7 @@ export interface ProjectUpdateVo {
 export interface QueryProjectDTO {
   pageSize?: number;
   pageIndex?: number;
+  skip?: number;
   title?: string;
   task_type?: string;
   category_id?: string;
@@ -444,6 +518,7 @@ export interface ProjectItemVo {
 export interface AddrQueryListDTO {
   pageSize?: number;
   pageIndex?: number;
+  skip?: number;
 }
 
 export interface AddrItemQueryDTO {

@@ -18,6 +18,7 @@ export const saveActionForUser = (params: SaveActionDTO) => {
 export interface QueryListForUserDTO {
   pageSize?: number;
   pageIndex?: number;
+  skip?: number;
   entity_type: number;
   action_type: number;
 }
@@ -47,6 +48,7 @@ export const queryStatusForUser = (params: QueryStatusForUserDTO) => {
 export interface QueryCountForEntityDTO {
   pageSize?: number;
   pageIndex?: number;
+  skip?: number;
   entity_type: number;
   action_type: number;
   entity_id: number;
