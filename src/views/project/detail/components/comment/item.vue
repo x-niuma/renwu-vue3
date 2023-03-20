@@ -37,8 +37,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { CommentItemVo, ReplyItemVo } from '@/service/auto-service/types'
-import { queryReplyList } from '@/service/auto-service/评论模块'
+import type { CommentItemVo } from '@/service/auto-service/types'
 import { ref, computed, defineProps, onMounted } from 'vue'
 import ReplyItem from './reply-item.vue'
 import { useProjectDetailStore } from '@/stores/project-detail'
@@ -51,33 +50,33 @@ const props = defineProps<{
   item: CommentItemVo
 }>()
 
-const total = ref(0)
-const list = ref<ReplyItemVo[]>([])
+const total = computed(() => {
+  return props.item.reply_info.total
+})
+const list = computed(() => {
+  return props.item.reply_info.list
+})
 
 const fetchReply = (size: number) => {
   loading.value = true
-  queryReplyList({
-    comment_id: props.item.id,
-    pageSize: size,
-    skip: list.value.length
-  }).then((res) => {
-    loading.value = false
-    total.value = res.data.total
-    list.value.push(...res.data.list)
-  })
+  projectDetailStore
+    .queryReplyList(props.item.id, {
+      comment_id: props.item.id,
+      pageSize: size,
+      skip: list.value.length
+    })
+    .then(() => {
+      loading.value = false
+    })
 }
 
 const hasMore = computed(() => list.value.length < total.value)
 const isShowExpand = computed(() => total.value > 1 && list.value.length === 1)
 
 const handleReply = () => {
-  projectDetailStore.clearSpeakId();
-  projectDetailStore.setSpeakComment(props.item);
+  projectDetailStore.clearSpeakId()
+  projectDetailStore.setSpeakComment(props.item)
   projectDetailStore.showEdit()
 }
 const loadMore = () => fetchReply(5)
-
-onMounted(() => {
-  fetchReply(1)
-})
 </script>
