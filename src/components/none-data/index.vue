@@ -1,6 +1,6 @@
 <template>
   <div class="none-data" :class="{ 'none-data--fixed': isFixed }">
-    <img class="none-data-icon" src="./img/no-msg.svg" alt="">
+    <!-- <img class="none-data-icon" src="./img/no-msg.svg" alt=""> -->
     <div class="none-data-text">{{ text }}</div>
   </div>
 </template>

@@ -40,7 +40,7 @@
           </div>
           <div class="ui-flex enroll-info">
             <van-icon class="icon-users" name="friends" />
-            <span class="enroll-num">{{ item.enrollList?.length || 0 }}人报名</span>
+            <span class="enroll-num">{{ 0 }}人报名</span>
             <!-- <van-icon class="arrow-right" name="arrow" /> -->
           </div>
         </div>

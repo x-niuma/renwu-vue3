@@ -12,7 +12,7 @@ const route = useRoute()
 
 onMounted(() => {
   queryDetail({
-    id: route.query.id
+    id: route.query.id as unknown as number
   })
 })
 </script>

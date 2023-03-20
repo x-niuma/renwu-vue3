@@ -3,7 +3,6 @@
     <van-tabbar route>
       <template v-for="item in menus">
         <van-tabbar-item
-          replace
           :to="item.path"
           :icon="item.icon"
           :badge="item.dot"

@@ -17,8 +17,11 @@ export interface ImagePickerRef {
 const uploadToken = ref('')
 const fileList = ref<UploaderFileListItem[]>([])
 
-const afterRead = (file: UploaderFileListItem) => {
-  upload(file)
+const afterRead = (file: UploaderFileListItem|UploaderFileListItem[], detail: {}) => {
+  console.log(detail)
+  if (file && !Array.isArray(file)) {
+    upload(file)
+  }
 }
 
 const upload = (it: UploaderFileListItem) => {

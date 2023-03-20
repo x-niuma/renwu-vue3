@@ -9,6 +9,7 @@ import type { UploaderFileListItem } from 'vant'
 import * as qiniu from 'qiniu-js'
 import { ref, defineProps, onMounted, defineExpose } from 'vue'
 import { get7niuToken } from '@/service/auto-service/上传模块'
+import type { Numeric } from 'vant/lib/utils';
 
 export interface ImagePickerRef {
   getValue: () => string[]
@@ -20,8 +21,14 @@ const props = defineProps<{
 
 const uploadToken = ref('')
 const fileList = ref<UploaderFileListItem[]>(props.defaultValue?.length ? props.defaultValue.map((it) => it) : [])
-const afterRead = (file: UploaderFileListItem) => {
-  upload(file)
+const afterRead = (file: UploaderFileListItem | UploaderFileListItem[], detail: {
+  name: Numeric;
+  index: number;
+}) => {
+  console.log(detail)
+  if (file && !Array.isArray(file)) {
+    upload(file)
+  }
 }
 
 const upload = (it: UploaderFileListItem) => {
