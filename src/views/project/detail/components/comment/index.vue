@@ -3,7 +3,7 @@
     <div class="floor__header">
       <div class="title">留言列表</div>
     </div>
-    <div class="floor__body">
+    <div class="floor__body ui-pt-0">
       <div class="list">
         <CommentItem v-for="(item, index) in comments" :key="index" :item="item" :topic_id="topic_id" />
       </div>

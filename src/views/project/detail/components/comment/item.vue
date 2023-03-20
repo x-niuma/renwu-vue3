@@ -1,9 +1,9 @@
 <template>
-  <div class="comment ui-flex ui-flex-jc-start ui-flex-align-start ui-p-0 ui-m-0">
+  <div class="comment ui-flex ui-flex-jc-start ui-flex-align-start">
     <div class="side">
       <img class="avatar" :src="item.author_avatar" alt="" />
     </div>
-    <div class="ui-flex-auto ui-border-bottom">
+    <div class="main ui-flex-auto ui-border-bottom">
       <div class="ui-flex ui-flex-jc-start ui-flex-align-start comment-header">
         <div class="nickname">{{ item.author_name }}</div>
       </div>

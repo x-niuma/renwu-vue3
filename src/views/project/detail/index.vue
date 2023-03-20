@@ -4,6 +4,7 @@
       <BaseInfo :detail-data="detailData" />
       <EnrollPerson :enroll-list="enrolls" />
       <Comment :topic_id="projectId" />
+      <Footer />
     </div>
   </Page>
 </template>
@@ -17,6 +18,7 @@ import EnrollPerson from './components/enroll-person/index.vue'
 import Page from '@/components/page/index.vue'
 import type { ProjectItemVo } from '@/service/auto-service/项目模块'
 import Comment from './components/comment/index.vue'
+import Footer from './components/footer/index.vue'
 
 const route = useRoute()
 const enrolls = ref([] as any[])
