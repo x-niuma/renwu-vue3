@@ -5,34 +5,30 @@
     </div>
     <div class="floor__body ui-pt-0">
       <div class="list">
-        <CommentItem v-for="(item, index) in comments" :key="index" :item="item" :topic_id="topic_id" />
+        <CommentItem
+          v-for="item in projectDetailStore.comments"
+          :key="item.id"
+          :item="item"
+          :topic_id="topic_id"
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted } from 'vue'
-import * as CommentAPI from '@/service/auto-service/评论模块'
+import { onMounted } from 'vue'
 import { CommentTopicTypeEnum } from '@/types/enum'
-import type { CommentItemVo } from '@/service/auto-service/types'
 import CommentItem from './item.vue'
+import { useProjectDetailStore } from '@/stores/project-detail'
 
-const props = defineProps<{
-  topic_id: number;
-}>()
-
-const comments = ref<CommentItemVo[]>([])
-
-const getComments = async () => {
-  const res = await CommentAPI.queryCommentList({
-    topic_id: props.topic_id,
-    topic_type: CommentTopicTypeEnum.project,
-  })
-  comments.value = res.data.list
-}
+const props = defineProps<{ topic_id: number }>()
+const projectDetailStore = useProjectDetailStore()
 
 onMounted(() => {
-  getComments()
+  projectDetailStore.getComments({
+    topic_id: props.topic_id,
+    topic_type: CommentTopicTypeEnum.project
+  })
 })
 </script>

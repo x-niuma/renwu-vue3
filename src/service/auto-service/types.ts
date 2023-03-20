@@ -232,10 +232,11 @@ export interface CommentItemVo {
   id: number;
   create_time: string;
   update_time: string;
+  from_uid: number;
   topic_type: string;
   topic_id: number;
   content: string;
-  images: string;
+  images?: string;
   author_name: string;
   author_avatar: string;
   reply_info: {
@@ -263,10 +264,11 @@ export interface QueryCommentListVo {
   id: number;
   create_time: string;
   update_time: string;
+  from_uid: number;
   topic_type: string;
   topic_id: number;
   content: string;
-  images: string;
+  images?: string;
   author_name: string;
   author_avatar: string;
   reply_info: {
@@ -295,17 +297,18 @@ export interface AddCommentDTO {
   topic_type: string;
   topic_id: number;
   content: string;
-  images: string;
+  images?: string;
 }
 
 export interface AddCommentVo {
   id: number;
   create_time: string;
   update_time: string;
+  from_uid: number;
   topic_type: string;
   topic_id: number;
   content: string;
-  images: string;
+  images?: string;
   author_name: string;
   author_avatar: string;
 }
@@ -321,13 +324,47 @@ export interface QueryReplyListDTO {
   comment_id: number;
 }
 
-export interface AddReplyDTO {
+export interface ReplyItemVo {
+  id: number;
+  create_time: string;
+  update_time: string;
+  from_uid: number;
   to_uid: number;
   comment_id: number;
   reply_type: string;
   reply_id: number;
   content: string;
   images: string;
+  author_name: string;
+  author_avatar: string;
+}
+
+export interface QueryReplyListVo {
+  list: {
+  id: number;
+  create_time: string;
+  update_time: string;
+  from_uid: number;
+  to_uid: number;
+  comment_id: number;
+  reply_type: string;
+  reply_id: number;
+  content: string;
+  images: string;
+  author_name: string;
+  author_avatar: string;
+}[];
+  total: number;
+  has_more: boolean;
+}
+
+export interface AddReplyDTO {
+  to_uid: number;
+  comment_id: number;
+  reply_type: string;
+  reply_id: number;
+  content: string;
+  images?: string;
 }
 
 export interface RemoveReplyDTO {

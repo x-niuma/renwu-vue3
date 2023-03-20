@@ -1,36 +1,38 @@
 <template>
   <div class="group group-btm">
-    <div v-if="isEdit" class="edit-box ui-flex ui-flex-align-start">
+    <div v-if="projectDetailStore.isEdit" class="edit-box ui-flex ui-flex-align-start">
       <van-field
         class="input"
-        v-model="message"
+        v-model="content"
         rows="1"
         autosize
         type="textarea"
         placeholder="请输入留言"
       />
-      <van-button class="ui-ml-10" size="small" type='default'>发送</van-button>
-      <van-button class="ui-ml-10" size="small" type="default" @click="hideEdit">取消</van-button>
+      <van-button class="ui-ml-10" size="small" type="default" @click="send">发送</van-button>
+      <van-button class="ui-ml-10" size="small" type="default" @click="projectDetailStore.hideEdit"
+        >取消</van-button
+      >
     </div>
     <div class="action-box ui-flex" v-else>
-      <div class="edit-tip" @click="showEdit">
+      <div class="edit-tip" @click="projectDetailStore.showEdit">
         <van-icon name="edit" />
         <span>说点什么</span>
       </div>
       <div>
         <van-space :size="18">
-        <div class="ui-flex">
-          <van-icon class="icon" name="like-o" />
-          <span>10</span>
-        </div>
-        <div class="ui-flex">
-          <van-icon class="icon" name="star-o" />
-          <span>10</span>
-        </div>
-        <div class="ui-flex">
-          <van-icon class="icon" name="chat-o" />
-          <span>10</span>
-        </div>
+          <div class="ui-flex">
+            <van-icon class="icon" name="like-o" />
+            <span>10</span>
+          </div>
+          <div class="ui-flex">
+            <van-icon class="icon" name="star-o" />
+            <span>10</span>
+          </div>
+          <div class="ui-flex">
+            <van-icon class="icon" name="chat-o" />
+            <span>10</span>
+          </div>
         </van-space>
       </div>
     </div>
@@ -38,12 +40,51 @@
 </template>
 
 <script lang="ts" setup>
+import { useProjectDetailStore } from '@/stores/project-detail'
+import { CommentReplyTypeEnum } from '@/types/enum';
 import { ref } from 'vue'
 
-const isEdit = ref(false);
-const message = ref('');
-const showEdit = () => isEdit.value = true;
-const hideEdit = () => isEdit.value = false;
+const props = defineProps<{
+  topic_id: number
+  topic_type: string
+}>()
+
+const projectDetailStore = useProjectDetailStore()
+const content = ref('')
+
+const send = () => {
+  if (projectDetailStore.speakCommentInfo) {
+    // 回复某个评论
+    const item = projectDetailStore.speakCommentInfo;
+    projectDetailStore.replyToComment({
+      to_uid: item!.from_uid,
+      comment_id: item!.id,
+      reply_id: item!.id,
+      reply_type: CommentReplyTypeEnum.comment,
+      content: content.value,
+      images: ''
+    })
+  } else if (projectDetailStore.speakReply) {
+    // 回复某个回复
+    const item = projectDetailStore.speakReply;
+    projectDetailStore.replyToComment({
+      to_uid: item!.from_uid,
+      comment_id: item!.comment_id,
+      reply_id: item!.id,
+      reply_type: CommentReplyTypeEnum.reply,
+      content: content.value,
+      images: ''
+    })
+  } else {
+    // 添加评论
+    projectDetailStore.addComment({
+      topic_id: props.topic_id,
+      topic_type: props.topic_type,
+      content: content.value,
+      images: ''
+    })
+  }
+}
 </script>
 
 <style lang="less" scoped>

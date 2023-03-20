@@ -41,6 +41,9 @@ import type { CommentItemVo, ReplyItemVo } from '@/service/auto-service/types'
 import { queryReplyList } from '@/service/auto-service/评论模块'
 import { ref, computed, defineProps, onMounted } from 'vue'
 import ReplyItem from './reply-item.vue'
+import { useProjectDetailStore } from '@/stores/project-detail'
+
+const projectDetailStore = useProjectDetailStore()
 
 const loading = ref(false)
 const props = defineProps<{
@@ -67,7 +70,11 @@ const fetchReply = (size: number) => {
 const hasMore = computed(() => list.value.length < total.value)
 const isShowExpand = computed(() => total.value > 1 && list.value.length === 1)
 
-const handleReply = () => {}
+const handleReply = () => {
+  projectDetailStore.clearSpeakId();
+  projectDetailStore.setSpeakComment(props.item);
+  projectDetailStore.showEdit()
+}
 const loadMore = () => fetchReply(5)
 
 onMounted(() => {

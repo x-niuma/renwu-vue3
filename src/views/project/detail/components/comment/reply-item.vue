@@ -30,11 +30,18 @@
 
 <script lang="ts" setup>
 import type { ReplyItemVo } from '@/service/auto-service/types'
+import { useProjectDetailStore } from '@/stores/project-detail';
 import { defineProps } from 'vue'
 
-defineProps<{
+const props = defineProps<{
   item: ReplyItemVo
 }>()
 
-const handleReply = () => {}
+const projectDetailStore = useProjectDetailStore()
+
+const handleReply = () => {
+  projectDetailStore.clearSpeakId();
+  projectDetailStore.setSpeakReplay(props.item);
+  projectDetailStore.showEdit()
+}
 </script>
