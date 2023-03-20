@@ -11,6 +11,7 @@ import ProjectEdit from '@/views/project/edit/index.vue';
 import ProjectAdd from '@/views/project/edit/add.vue';
 import ProjectSearch from '@/views/project/search/index.vue';
 import MeUserInfo from '@/views/me/user-info/index.vue';
+import WexinLoginCallback from '@/views/wexin-login-callback/index.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -62,6 +63,11 @@ const router = createRouter({
       path: '/project-search',
       name: 'project-search',
       component: ProjectSearch
+    },
+    {
+      path: '/wexin-login-callback',
+      name: 'wexin-login-callback',
+      component: WexinLoginCallback
     },
     {
       path: "/:pathMatch(.*)*",
