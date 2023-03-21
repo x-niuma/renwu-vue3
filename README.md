@@ -1,4 +1,4 @@
-## renwu-ui-vue3
+## renwu-ui-vue
 
 拉取 API 文件:
 ```shell
