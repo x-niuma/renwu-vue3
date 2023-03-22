@@ -1,5 +1,5 @@
 <template>
-  <van-list
+  <List
     v-model:loading="loading"
     :finished="!isCurrent || !hasMore"
     finished-text="没有更多了"
@@ -45,7 +45,7 @@
         </div>
       </li>
     </ul>
-  </van-list>
+  </List>
 </template>
 
 <script lang="ts" setup>
@@ -53,7 +53,7 @@ import { List } from 'vant'
 import * as projectService from '@/service/auto-service/项目模块'
 import InlineTag from '@/components/inline-tag/index.vue'
 import avatar from '@/assets/img/avatar.png'
-import { ref, computed, watch } from 'vue'
+import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import type { ProjectListVo } from '@/service/auto-service/types'
 
@@ -73,6 +73,10 @@ const props = defineProps({
   activeIndex: {
     type: Number,
     required: true
+  },
+  category_id: {
+    type: Number,
+    required: true
   }
 })
 
@@ -90,7 +94,7 @@ async function getDataList() {
   const params = {
     pageSize: pageSize,
     pageIndex: pageIndex.value,
-    // appTypeId: props.appTypeId,
+    category_id: String(props.category_id),
     ...props.params
   }
 

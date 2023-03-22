@@ -5,9 +5,9 @@
       <FilterMenu ref="scrollbar" class="menu" @change="tabIndexChanged" />
     </div>
     <div class="main">
-      <swiper class="mySwiper" @swiper="onSwiper" :speed="250" @slideChange="slideChange" ref="mySwiper">
+      <swiper class="mySwiper" @swiper="onSwiper" :speed="250" :loop="false" @slideChange="slideChange" ref="mySwiper">
         <swiper-slide class="swiper-slider" v-for="(item, index) in list" :key="index">
-          <DemandList :appTypeId="item.id" :index="index" :activeIndex="activeIndex" />
+          <DemandList :appTypeId="item.id" :index="index" :activeIndex="activeIndex" :category_id="list[index].id" />
         </swiper-slide>
       </swiper>
     </div>
@@ -17,22 +17,21 @@
 <script setup lang="ts">
 import 'swiper/css'
 import Page from '@/components/page/index.vue';
+import * as projectService from '@/service/auto-service/项目模块'
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
 import FilterMenu from './components/category-list.vue'
 import DemandList from './components/project-list.vue'
 import SearchForm from './components/search-form.vue'
-import * as api from '@/service/project'
 import { onMounted, ref } from 'vue'
 
 const scrollbar = ref(null as any);
 const mySwiper = ref(null as any);
-
 const list = ref([] as any[]);
 const activeIndex = ref(0);
 
 const slideChange = (swiper: any) => {
   activeIndex.value = swiper.activeIndex;
-  scrollbar.value.slideTo(swiper.activeIndex);
+  scrollbar.value.slideTo(swiper.realIndex);
 }
 
 const tabIndexChanged = (index: number) => {
@@ -45,13 +44,9 @@ const onSwiper = (swiper: any) => {
 };
 
 onMounted(async () => {
-  let res = await api.getProjectCategory()
+  let res: any = await projectService.queryCategoryList({})
   list.value = res.data.list;
 })
-
-//     appTypeId() {
-//       return this.$route.query.appTypeId
-//     }
 </script>
 
 <style lang="less" scoped>
@@ -66,7 +61,6 @@ onMounted(async () => {
   z-index: 5;
   width: 100%;
   top: 0;
-
   .menu {
     margin-top: -1px;
   }
