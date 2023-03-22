@@ -1,16 +1,16 @@
 <template>
-  <div
-    v-infinite-scroll="loadMore"
-    :infinite-scroll-disabled="loading"
-    :infinite-scroll-distance="20"
-    infinite-scroll-immediate-check="false"
+  <van-list
+    v-model:loading="loading"
+    :finished="!isCurrent || !hasMore"
+    finished-text="没有更多了"
+    @load="loadMore"
   >
     <ul class="d-list">
       <li class="d-item" v-for="(item, index) in list" :key="index" @click="switchItem(item.id)">
         <div class="d-item__hd">
           <div class="d-item__logo-main">
             <div class="title-wrapper">
-              <span class="title">{{ index + 1 }}. {{ item.title }}</span>
+              <span class="title">{{ item.id }}. {{ item.title }}</span>
               <van-icon name="ellipsis" />
             </div>
             <div class="tags">
@@ -36,39 +36,24 @@
         <div class="d-item__ft">
           <div class="ui-flex" @click.stop="goUserProfile(item.user_id)">
             <img class="d-item__avatar" :src="item.author_avatar || avatar" />
-            <div class="d-item__name">{{ item.author_name }}</div>
+            <div class="ui-fs-13 ui-ml-4">{{ item.author_name }}</div>
           </div>
           <div class="ui-flex enroll-info">
             <van-icon class="icon-users" name="friends" />
             <span class="enroll-num">{{ 0 }}人报名</span>
-            <!-- <van-icon class="arrow-right" name="arrow" /> -->
           </div>
         </div>
       </li>
     </ul>
-
-    <div class="loading" v-if="loading">
-      <van-loading class="van-loading" size="24px"></van-loading>
-      <span>加载中...</span>
-    </div>
-
-    <div class="loading" v-if="!loading && !hasMore && !list.length">
-      <NoneData />
-    </div>
-
-    <template v-if="!loading && !hasMore && list.length > 5">
-      <Loading message="我是有底线的"></Loading>
-    </template>
-  </div>
+  </van-list>
 </template>
 
 <script lang="ts" setup>
+import { List } from 'vant'
 import * as projectService from '@/service/auto-service/项目模块'
-import Loading from '@/components/loading/index.vue'
-import NoneData from '@/components/none-data/index.vue'
 import InlineTag from '@/components/inline-tag/index.vue'
 import avatar from '@/assets/img/avatar.png'
-import { ref, onMounted, watch } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import type { ProjectListVo } from '@/service/auto-service/types'
 
@@ -92,21 +77,16 @@ const props = defineProps({
 })
 
 const router = useRouter()
-const goUserProfile = (id: number) => {
-  router.push('/userProfile/' + id)
-}
-
+const goUserProfile = (id: number) => router.push('/userProfile/' + id)
 const list = ref([] as ProjectListVo['list'])
 const loading = ref(false)
 const hasMore = ref(true)
-const isRefresh = ref(false)
-
-const pageIndex = ref(1)
+const pageIndex = ref(0)
 const pageSize = 10
 const total = ref(0)
+const isCurrent = computed(() => props.activeIndex === props.index)
 
 async function getDataList() {
-  loading.value = true
   const params = {
     pageSize: pageSize,
     pageIndex: pageIndex.value,
@@ -114,77 +94,29 @@ async function getDataList() {
     ...props.params
   }
 
-  let res: any = await projectService.queryList(params)
-  loading.value = false
-
-  if (isRefresh.value) {
-    list.value = res.data.list
-  } else {
-    list.value = list.value.concat(res.data.list)
-  }
-
+  let res = await projectService.queryList(params)
+  list.value = list.value.concat(res.data.list)
   total.value = res.data.total
   hasMore.value = list.value.length < total.value
-  isRefresh.value = false
+  loading.value = false
 }
 
 const switchItem = (itemId: number) => {
   router.push(`/project-detail?id=${itemId}`)
 }
 
-const handleParamChanged = () => {
-  isRefresh.value = true
-  pageIndex.value = 1
-  getDataList()
-}
-
 const loadMore = () => {
-  if (loading.value) return
-  if (!hasMore.value) return
+  if (!isCurrent.value) return
   pageIndex.value++
   getDataList()
 }
-
-onMounted(() => {
-  if (props.index === props.activeIndex) {
-    getDataList()
-  }
-})
-
-watch(
-  () => props.activeIndex,
-  () => {
-    if (props.activeIndex === props.index) {
-      getDataList()
-    }
-  }
-)
 </script>
 
 <style lang="less" scoped>
-.view {
-  min-height: 100vh;
-  background: #f4f7f9;
-}
-
-.loading {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto;
-  text-align: center;
-  color: #666;
-  font-size: 12px;
-
-  .van-loading {
-    margin-right: 8px;
-  }
-}
-
 .d-list {
   overflow: hidden;
   padding: 12px;
-  padding-bottom: 10px;
+  padding-bottom: 0;
 }
 
 .d-item {
@@ -194,6 +126,7 @@ watch(
   border-bottom: solid 1px #f5f5f5;
   margin-bottom: 8px;
   border-radius: 4px;
+  font-size: 13px;
 
   &:last-child {
     margin-bottom: 0;
@@ -239,29 +172,14 @@ watch(
     padding-top: 10px;
     border-top: 1px solid #f4f4f4;
   }
-
-  &__name {
-    margin-left: 4px;
-  }
-}
-
-.d-item__bd,
-.d-item__name {
-  font-size: 12px;
-}
-
-.d-item__logo {
-  border-radius: 2px;
 }
 
 .enroll-info {
   font-size: 14px;
-
   .enroll-num {
     margin: 0 4px;
     font-size: 12px;
   }
-
   .icon-users {
     font-size: 16px;
   }
@@ -272,10 +190,6 @@ watch(
   flex-direction: column;
   align-items: center;
   margin-right: 10px;
-}
-
-.loading {
-  line-height: 50px;
 }
 
 .filter {
