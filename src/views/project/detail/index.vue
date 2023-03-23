@@ -1,9 +1,11 @@
 <template>
   <Page title="项目详情" v-if="projectDetailStore.detail">
-    <div class="page-project" >
-      <BaseInfo :detail-data="projectDetailStore.detail" />
-      <EnrollPerson :enroll-list="enrolls" />
-      <Comment :topic_id="projectId" />
+    <div class="page-project">
+    
+        <BaseInfo :detail-data="projectDetailStore.detail" />
+        <EnrollPerson :enroll-list="enrolls" />
+        <Comment :topic_id="projectId" />
+
       <Footer :topic_id="projectId" topic_type="project" />
     </div>
   </Page>
@@ -24,8 +26,9 @@ const enrolls = ref([] as any[])
 const projectId = Number(route.query.id)
 const projectDetailStore = useProjectDetailStore()
 
+
 onMounted(() => {
-  projectDetailStore.queryDetail(projectId);
+  projectDetailStore.queryDetail(projectId)
 })
 </script>
 

@@ -30,12 +30,12 @@ export const useProjectDetailStore = defineStore('user', {
 
     async getComments(props: QueryCommentListDTO) {
       const res = await queryCommentList({
-        topic_id: props.topic_id,
-        topic_type: CommentTopicTypeEnum.project
+        ...props,
       })
       this.$patch({
-        comments: res.data.list
+        comments: [...this.comments, ...res.data.list] 
       })
+      return res
     },
 
     queryReplyList (comment_id: number, props: QueryReplyListDTO) {
