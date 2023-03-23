@@ -2,7 +2,7 @@ import { request } from "@/utils/request";
 
 export const test = (params: {}) => {
   return request<{}>({
-    url: "/ping/test",
+    url: "/api/ping/test",
     method: "GET",
     data: params
   });
@@ -10,7 +10,7 @@ export const test = (params: {}) => {
 
 export const mongo = (params: {}) => {
   return request<{}>({
-    url: "/ping/mongo",
+    url: "/api/ping/mongo",
     method: "GET",
     data: params
   });
@@ -18,7 +18,7 @@ export const mongo = (params: {}) => {
 
 export const redirect = (params: {}) => {
   return request<{}>({
-    url: "/ping/redirect",
+    url: "/api/ping/redirect",
     method: "GET",
     data: params
   });

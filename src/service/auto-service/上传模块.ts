@@ -2,7 +2,7 @@ import { request } from "@/utils/request";
 
 export const get7niuToken = (params: {}) => {
   return request<{}>({
-    url: "/upload/get7niuToken",
+    url: "/api/upload/get7niuToken",
     method: "POST",
     data: params
   });
@@ -10,7 +10,7 @@ export const get7niuToken = (params: {}) => {
 
 export const files = (params: {}) => {
   return request<{}>({
-    url: "/upload/files",
+    url: "/api/upload/files",
     method: "POST",
     data: params
   });
@@ -18,7 +18,7 @@ export const files = (params: {}) => {
 
 export const file = (params: {}) => {
   return request<{}>({
-    url: "/upload/file",
+    url: "/api/upload/file",
     method: "POST",
     data: params
   });

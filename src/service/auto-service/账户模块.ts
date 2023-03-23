@@ -1,175 +1,40 @@
 import { request } from "@/utils/request";
 
-export interface RegisterDto {
-  account: string;
-  password?: string;
-  code?: string;
-  registerType: string;
-}
-
-export interface RegisterRes {
-  id: number;
-  create_time: string;
-  update_time: string;
-  account: string;
-  password: string;
-  mobile: string;
-  email: string;
-  nickname: string;
-  avatar: string;
-  gender: string;
-  birthday: string;
-  city: string;
-  college: string;
-  introduction: string;
-  background: string;
-  status: boolean;
-  token: string;
-  reputation: number;
-}
-
 export const register = (params: RegisterDto) => {
   return request<RegisterRes>({
-    url: "/account/register",
+    url: "/api/account/register",
     method: "POST",
     data: params
   });
-}
-
-export interface RegisterByAccountDto {
-  account: string;
-  password?: string;
-}
-
-export interface RegisterRes {
-  id: number;
-  create_time: string;
-  update_time: string;
-  account: string;
-  password: string;
-  mobile: string;
-  email: string;
-  nickname: string;
-  avatar: string;
-  gender: string;
-  birthday: string;
-  city: string;
-  college: string;
-  introduction: string;
-  background: string;
-  status: boolean;
-  token: string;
-  reputation: number;
 }
 
 export const registerByAccount = (params: RegisterByAccountDto) => {
   return request<RegisterRes>({
-    url: "/account/registerByAccount",
+    url: "/api/account/registerByAccount",
     method: "POST",
     data: params
   });
-}
-
-export interface LoginDto {
-  account: string;
-  password?: string;
-  code?: string;
-  codeType?: string;
-  loginType: string;
-}
-
-export interface LoginRes {
-  id: number;
-  create_time: string;
-  update_time: string;
-  account: string;
-  password: string;
-  mobile: string;
-  email: string;
-  nickname: string;
-  avatar: string;
-  gender: string;
-  birthday: string;
-  city: string;
-  college: string;
-  introduction: string;
-  background: string;
-  status: boolean;
-  token: string;
-  reputation: number;
 }
 
 export const login = (params: LoginDto) => {
   return request<LoginRes>({
-    url: "/account/login",
+    url: "/api/account/login",
     method: "POST",
     data: params
   });
-}
-
-export interface PwdLoginDto {
-  account: string;
-  password: string;
-}
-
-export interface LoginRes {
-  id: number;
-  create_time: string;
-  update_time: string;
-  account: string;
-  password: string;
-  mobile: string;
-  email: string;
-  nickname: string;
-  avatar: string;
-  gender: string;
-  birthday: string;
-  city: string;
-  college: string;
-  introduction: string;
-  background: string;
-  status: boolean;
-  token: string;
-  reputation: number;
 }
 
 export const pwdLogin = (params: PwdLoginDto) => {
   return request<LoginRes>({
-    url: "/account/pwdLogin",
+    url: "/api/account/pwdLogin",
     method: "POST",
     data: params
   });
 }
 
-export interface CodeLoginDTO {
-  account: string;
-  code: string;
-}
-
-export interface LoginRes {
-  id: number;
-  create_time: string;
-  update_time: string;
-  account: string;
-  password: string;
-  mobile: string;
-  email: string;
-  nickname: string;
-  avatar: string;
-  gender: string;
-  birthday: string;
-  city: string;
-  college: string;
-  introduction: string;
-  background: string;
-  status: boolean;
-  token: string;
-  reputation: number;
-}
-
 export const codeLogin = (params: CodeLoginDTO) => {
   return request<LoginRes>({
-    url: "/account/codeLogin",
+    url: "/api/account/codeLogin",
     method: "POST",
     data: params
   });
@@ -177,108 +42,55 @@ export const codeLogin = (params: CodeLoginDTO) => {
 
 export const logout = (params: {}) => {
   return request<{}>({
-    url: "/account/logout",
+    url: "/api/account/logout",
     method: "POST",
     data: params
   });
-}
-
-export interface CheckLoginRes {
-  status: boolean;
-  user: undefined;
 }
 
 export const checkLogin = (params: {}) => {
   return request<CheckLoginRes>({
-    url: "/account/checkLogin",
+    url: "/api/account/checkLogin",
     method: "POST",
     data: params
   });
-}
-
-export interface GetUserInfoRes {
-  id: number;
-  create_time: string;
-  update_time: string;
-  account: string;
-  password: string;
-  mobile: string;
-  email: string;
-  nickname: string;
-  avatar: string;
-  gender: string;
-  birthday: string;
-  city: string;
-  college: string;
-  introduction: string;
-  background: string;
-  status: boolean;
 }
 
 export const getUserInfo = (params: {}) => {
   return request<GetUserInfoRes>({
-    url: "/account/getUserInfo",
+    url: "/api/account/getUserInfo",
     method: "POST",
     data: params
   });
-}
-
-export interface SendCodeDto {
-
-}
-
-export interface SendCodeRes {
-  status: boolean;
 }
 
 export const sendCode = (params: SendCodeDto) => {
   return request<SendCodeRes>({
-    url: "/account/sendCode",
+    url: "/api/account/sendCode",
     method: "POST",
     data: params
   });
-}
-
-export interface UpdateUserInfoDto {
-
 }
 
 export const updateUserInfo = (params: UpdateUserInfoDto) => {
   return request<{}>({
-    url: "/account/updateUserInfo",
+    url: "/api/account/updateUserInfo",
     method: "POST",
     data: params
   });
-}
-
-export interface InitPasswordDto {
-
-}
-
-export interface InitPasswordRes {
-  status: boolean;
 }
 
 export const initPassword = (params: InitPasswordDto) => {
   return request<InitPasswordRes>({
-    url: "/account/initPassword",
+    url: "/api/account/initPassword",
     method: "POST",
     data: params
   });
 }
 
-export interface UpdatePasswordDto {
-  password: string;
-  newPassword: string;
-}
-
-export interface UpdatePwdRes {
-  status: boolean;
-}
-
 export const updatePassword = (params: UpdatePasswordDto) => {
   return request<UpdatePwdRes>({
-    url: "/account/updatePassword",
+    url: "/api/account/updatePassword",
     method: "POST",
     data: params
   });
@@ -286,24 +98,24 @@ export const updatePassword = (params: UpdatePasswordDto) => {
 
 export const queryWxLoginResult = (params: {}) => {
   return request<{}>({
-    url: "/account/queryWxLoginResult",
+    url: "/api/account/queryWxLoginResult",
     method: "POST",
     data: params
   });
 }
 
-export const getWxQrCodeForAuthCode = (params: {}) => {
+export const getWexinAuthUrl = (params: GetWxQrCodeForAuthCodeDTO) => {
   return request<{}>({
-    url: "/account/getWxQrCodeForAuthCode",
+    url: "/api/account/getWexinAuthUrl",
     method: "POST",
     data: params
   });
 }
 
-export const wxLoginByAuthCode = (params: {}) => {
+export const wexinLoginByAuthCode = (params: {}) => {
   return request<{}>({
-    url: "/account/wxLoginByAuthCode",
-    method: "GET",
+    url: "/api/account/wexinLoginByAuthCode",
+    method: "POST",
     data: params
   });
 }

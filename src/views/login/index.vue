@@ -75,38 +75,6 @@ const handleClick = () => {
       }
     })
 }
-// export default {
-//   props: {
-//     onLogin: Function
-//   },
-//   computed: {
-//     ...mapState({
-//       loading: state => state.user.loading,
-//       userInfo: state => state.user.userInfo
-//     }),
-//     disabled() {
-//       return !this.account.length || this.password.length < 6
-//     },
-//     redirect() {
-//       return this.$route.query.redirect
-//     }
-//   },
-//   created() {
-//     if (this.$route.query.authType) {
-//       this.authType = this.$route.query.authType
-//     }
-//   },
-//   methods: {
-//     async handleGetCode() {
-//       let res = await api.getaccountCode({
-//         account: this.account
-//       })
-//       if (res && res.success) {
-//         return Toast('发送验证成功')
-//       }
-//       Toast(`发送验证码失败: ${res.errMsg}`)
-//     }
-// }
 </script>
 
 <style lang="less" scoped>

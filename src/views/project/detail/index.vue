@@ -1,10 +1,9 @@
 <template>
   <Page title="项目详情" v-if="projectDetailStore.detail">
     <div class="page-project">
-    
-        <BaseInfo :detail-data="projectDetailStore.detail" />
-        <EnrollPerson :enroll-list="enrolls" />
-        <Comment :topic_id="projectId" />
+      <BaseInfo :detail-data="projectDetailStore.detail" />
+      <EnrollPerson :enroll-list="enrolls" />
+      <Comment :topic_id="projectId" />
 
       <Footer :topic_id="projectId" topic_type="project" />
     </div>
@@ -13,7 +12,7 @@
 
 <script lang="ts" setup>
 import { useRoute } from 'vue-router'
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import BaseInfo from './components/base-info/index.vue'
 import EnrollPerson from './components/enroll-person/index.vue'
 import Page from '@/components/page/index.vue'
@@ -26,9 +25,12 @@ const enrolls = ref([] as any[])
 const projectId = Number(route.query.id)
 const projectDetailStore = useProjectDetailStore()
 
-
 onMounted(() => {
   projectDetailStore.queryDetail(projectId)
+})
+
+onUnmounted(() => {
+  projectDetailStore.reset()
 })
 </script>
 

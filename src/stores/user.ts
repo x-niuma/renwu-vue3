@@ -3,7 +3,6 @@ import { defineStore, acceptHMRUpdate } from "pinia";
 import * as store from "store";
 import * as UserAPI from "@/service/auto-service/账户模块";
 import { sleep } from "@/utils/sleep";
-import type { PwdLoginDto } from "@/service/auto-service/types";
 
 export const useUserStore = defineStore("user", {
   state: () => ({
@@ -17,7 +16,6 @@ export const useUserStore = defineStore("user", {
     async logout() {
       store.remove('token');
       store.remove("userInfo");
-
       this.$patch({
         token: "",
         userInfo: null,

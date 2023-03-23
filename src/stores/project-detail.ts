@@ -1,26 +1,27 @@
-import type {
-  AddCommentDTO,
-  AddReplyDTO,
-  CommentItemVo,
-  ProjectItemVo,
-  QueryCommentListDTO,
-  QueryReplyListDTO,
-  ReplyItemVo
-} from '@/service/auto-service/types'
-import { addComment, addReply, queryCommentList, queryReplyList } from '@/service/auto-service/评论模块'
-import { CommentTopicTypeEnum } from '@/types/enum'
+import {
+  addComment,
+  addReply,
+  queryCommentList,
+  queryReplyList
+} from '@/service/auto-service/评论模块'
 import { defineStore, acceptHMRUpdate } from 'pinia'
 import * as ProjectAPI from '@/service/auto-service/项目模块'
 
-export const useProjectDetailStore = defineStore('user', {
-  state: () => ({
-    detail: null as null | ProjectItemVo,
-    comments: [] as CommentItemVo[],
-    isEdit: false,
-    speakCommentInfo: null as null | CommentItemVo,
-    speakReply: null as null | ReplyItemVo
-  }),
+const initState = {
+  detail: null as null | ProjectItemVo,
+  comments: [] as CommentItemVo[],
+  isEdit: false,
+  speakCommentInfo: null as null | CommentItemVo,
+  speakReply: null as null | ReplyItemVo
+}
+
+export const useProjectDetailStore = defineStore('project-detail', {
+  state: () => ({ ...initState }),
   actions: {
+    reset() {
+      this.$patch({ ...initState })
+    },
+
     async queryDetail(projectId: number) {
       let res = await ProjectAPI.queryDetail({
         id: projectId
@@ -30,21 +31,21 @@ export const useProjectDetailStore = defineStore('user', {
 
     async getComments(props: QueryCommentListDTO) {
       const res = await queryCommentList({
-        ...props,
+        ...props
       })
       this.$patch({
-        comments: [...this.comments, ...res.data.list] 
+        comments: [...this.comments, ...res.data.list]
       })
       return res
     },
 
-    queryReplyList (comment_id: number, props: QueryReplyListDTO) {
-      const current = this.comments.find((it) => it.id === comment_id);
+    queryReplyList(comment_id: number, props: QueryReplyListDTO) {
+      const current = this.comments.find((it) => it.id === comment_id)
       return queryReplyList({
         comment_id,
-        ...props,
+        ...props
       }).then((res) => {
-        current.reply_info.has_more = res.data.has_more;
+        current.reply_info.has_more = res.data.has_more
         current.reply_info.list = [...current.reply_info.list, ...res.data.list]
         current.reply_info.total = res.data.total
       })
