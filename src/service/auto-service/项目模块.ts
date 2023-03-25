@@ -48,6 +48,14 @@ export const queryList = (params: QueryProjectDTO) => {
   });
 }
 
+export const queryListByIdList = (params: QueryListByIdListDTO) => {
+  return request<ProjectListVo>({
+    url: "/api/project/queryListByIdList",
+    method: "POST",
+    data: params
+  });
+}
+
 export const queryDetail = (params: QueryProjectDetailDTO) => {
   return request<ProjectItemVo>({
     url: "/api/project/queryDetail",

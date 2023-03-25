@@ -9,7 +9,7 @@ export const saveActionForUser = (params: SaveActionDTO) => {
 }
 
 export const queryListForUser = (params: QueryListForUserDTO) => {
-  return request<{}>({
+  return request<QueryTrackListForUserVO>({
     url: "/api/track/queryListForUser",
     method: "POST",
     data: params

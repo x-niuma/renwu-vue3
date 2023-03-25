@@ -316,6 +316,33 @@ declare interface QueryListForUserDTO {
   action_type: number;
 }
 
+declare interface TrackItemVo {
+  id: number;
+  create_time: string;
+  update_time: string;
+  entity_type: number;
+  action_type: number;
+  entity_id: number;
+  from_uid: number;
+  author_name: string;
+  author_id: number;
+}
+
+declare interface QueryTrackListForUserVO {
+  total: number;
+  list: {
+  id: number;
+  create_time: string;
+  update_time: string;
+  entity_type: number;
+  action_type: number;
+  entity_id: number;
+  from_uid: number;
+  author_name: string;
+  author_id: number;
+}[];
+}
+
 declare interface QueryStatusForUserDTO {
   entity_type: number;
   action_type: number;
@@ -414,6 +441,10 @@ declare interface ProjectListVo {
   author_name: string;
   author_avatar: string;
 }[];
+}
+
+declare interface QueryListByIdListDTO {
+  id: any[];
 }
 
 declare interface QueryProjectDetailDTO {
