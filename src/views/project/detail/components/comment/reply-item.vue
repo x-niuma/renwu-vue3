@@ -29,7 +29,6 @@
 </template>
 
 <script lang="ts" setup>
-import type { ReplyItemVo } from '@/service/auto-service/types'
 import { useProjectDetailStore } from '@/stores/project-detail';
 import { defineProps } from 'vue'
 

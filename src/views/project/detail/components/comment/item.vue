@@ -37,7 +37,6 @@
 </template>
 
 <script lang="ts" setup>
-import type { CommentItemVo } from '@/service/auto-service/types'
 import { ref, computed, defineProps, onMounted } from 'vue'
 import ReplyItem from './reply-item.vue'
 import { useProjectDetailStore } from '@/stores/project-detail'

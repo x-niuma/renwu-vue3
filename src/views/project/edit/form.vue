@@ -70,9 +70,7 @@ import CategoryPicker from './category-picker/index.vue'
 import TaskTypePicker from './task-type-picker/index.vue'
 import CityPicker, { type ICityPicker } from './city-picker/index.vue'
 import ImagePicker, { type ImagePickerRef } from './image-picker/index.vue'
-import type { ProjectItemVo } from '@/service/auto-service/项目模块'
 import * as ProjectAPI from '@/service/auto-service/项目模块'
-import type { CreateProjectDTO } from '@/service/auto-service/types'
 import { checkMoney } from '@/utils/validation'
 
 const props = defineProps<{

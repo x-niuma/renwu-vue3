@@ -15,8 +15,8 @@
 
 <script lang="ts" setup>
 import { ref, onMounted, toRaw } from 'vue'
-import { getCity } from '@/service/city'
 import type { PickerInstance, PickerOption } from 'vant'
+import { getCity } from '@/service/auto-service/default'
 
 export interface ICityPicker {
   show: () => void

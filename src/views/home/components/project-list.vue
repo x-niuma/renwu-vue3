@@ -55,7 +55,6 @@ import InlineTag from '@/components/inline-tag/index.vue'
 import avatar from '@/assets/img/avatar.png'
 import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
-import type { ProjectListVo } from '@/service/auto-service/types'
 
 const props = defineProps({
   appTypeId: {

@@ -11,7 +11,7 @@ import { useRoute } from 'vue-router'
 import EditForm from './form.vue'
 import Loading from '@/components/loading/index.vue'
 import Page from '@/components/page/index.vue'
-import { queryDetail, type ProjectItemVo } from '@/service/auto-service/项目模块'
+import { queryDetail } from '@/service/auto-service/项目模块'
 
 const route = useRoute()
 const loading = ref(false);

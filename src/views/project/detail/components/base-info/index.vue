@@ -53,7 +53,6 @@
 import { defineProps } from 'vue'
 import InlineTag from '@/components/inline-tag/index.vue'
 import avatar from '@/assets/img/avatar.png'
-import type { ProjectItemVo } from '@/service/auto-service/项目模块'
 
 defineProps<{
   detailData: ProjectItemVo
