@@ -39,8 +39,12 @@
         </template>
       </div>
     </div>
-
-    <van-button @click="doWexinLogin">微信登录</van-button>
+    <div class="third-login">
+      <van-divider>三方登录</van-divider>
+      <img src="./wx.png" class="wx-login"  @click="doWexinLogin" alt="">
+    </div>
+    <!-- <img src="./wx.png" class="wx-login"  alt=""> -->
+    <!-- <van-button class="wx-login" @click="doWexinLogin">微信登录</van-button> -->
   </div>
 </template>
 
@@ -133,5 +137,15 @@ const handleClick = () => {
 
 .wrapper {
   background: #fff;
+}
+
+.third-login {
+  width: 60%;
+  margin: 0 auto;
+  text-align: center;
+  margin-top: 50px;
+  .wx-login {
+    width: 40px;
+  }
 }
 </style>

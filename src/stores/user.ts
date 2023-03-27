@@ -3,6 +3,7 @@ import { defineStore, acceptHMRUpdate } from "pinia";
 import * as store from "store";
 import * as UserAPI from "@/service/auto-service/账户模块";
 import { sleep } from "@/utils/sleep";
+import { wexinLoginByAuthCode } from "@/service/auto-service/账户模块";
 
 export const useUserStore = defineStore("user", {
   state: () => ({
@@ -27,6 +28,23 @@ export const useUserStore = defineStore("user", {
     async login(params: PwdLoginDto) {
       try {
         const res = await UserAPI.pwdLogin(params);
+        const data = res.data;
+        this.$patch({
+          token: data.token,
+          userInfo: data,
+        });
+        store.set("token", data.token);
+        store.set("userInfo", data);
+        return true;
+      } catch (e) {
+        e;
+        return false;
+      }
+    },
+
+    async wexinLoginByAuthCode(params: {}) {
+      try {
+        const res: any = await wexinLoginByAuthCode(params);
         const data = res.data;
         this.$patch({
           token: data.token,
