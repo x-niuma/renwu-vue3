@@ -6,12 +6,18 @@ import { useUserStore } from '@/stores/user'
 import { Button } from 'vant'
 import Page from '@/components/page/index.vue'
 import Collect from './components/collect/index.vue';
+import { doWalletRecharge } from '@/service/auto-service/钱包模块'
 
 const router = useRouter()
 const userStore = useUserStore()
 const active = ref(0)
 const toLogin = () => router.push('/login')
 const logout = () => userStore.logout()
+const recharge = () => {
+  doWalletRecharge({}).then((res) => {
+    console.log(res)
+  })
+}
 </script>
 
 <template>
@@ -44,8 +50,9 @@ const logout = () => userStore.logout()
               <span>关注</span>
               <span>(4)</span>
             </div>
+            <van-button size="small" @click="recharge">充值</van-button>
           </Space>
-            <van-button class="btn-edit ui-ml-10" size="small" round plain type="primary">编辑资料</van-button>
+          <van-button class="btn-edit ui-ml-10" size="small" round plain type="primary">编辑资料</van-button>
         </div>
       </div>
       <van-tabs class="scroll" v-model:active="active">

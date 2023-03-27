@@ -63,3 +63,11 @@ export const doWalletRecharge = (params: {}) => {
     data: params
   });
 }
+
+export const walletRechargeNotify = (params: {}) => {
+  return request<{}>({
+    url: "/api/wallet/walletRechargeNotify",
+    method: "POST",
+    data: params
+  });
+}
