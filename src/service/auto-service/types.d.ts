@@ -127,6 +127,12 @@ declare interface GetWxQrCodeForAuthCodeDTO {
   redirect: string;
 }
 
+declare interface GetWexinAuthUrlVo {
+  uri: string;
+  token: string;
+  img: string;
+}
+
 declare interface QueryCommentListDTO {
   pageSize?: number;
   pageIndex?: number;
@@ -477,5 +483,69 @@ declare interface CityNode {
   value: string;
   text: string;
   children?: CityNode[];
+}
+
+declare interface QueryWalletAccountVO {
+  id: number;
+  create_time: string;
+  update_time: string;
+  user_id: number;
+  password: string;
+  amount: number;
+  frozen_amount: number;
+  status: number;
+}
+
+declare interface WalletAccountFlowEntity {
+  id: number;
+  create_time: string;
+  update_time: string;
+  user_id: number;
+  record_no: string;
+  third_no: string;
+  amount: number;
+  change_type: number;
+  action_type: number;
+  description: string;
+}
+
+declare interface QueryWalletFlowVO {
+  list: {
+  id: number;
+  create_time: string;
+  update_time: string;
+  user_id: number;
+  record_no: string;
+  third_no: string;
+  amount: number;
+  change_type: number;
+  action_type: number;
+  description: string;
+}[];
+  total: number;
+}
+
+declare interface WalletBankEntity {
+  id: number;
+  create_time: string;
+  update_time: string;
+  user_id: number;
+  bank_id: number;
+  bank_name: string;
+  bank_account: string;
+  bank_no: string;
+}
+
+declare interface QueryUserWalletBankVO {
+  list: {
+  id: number;
+  create_time: string;
+  update_time: string;
+  user_id: number;
+  bank_id: number;
+  bank_name: string;
+  bank_account: string;
+  bank_no: string;
+}[];
 }
 

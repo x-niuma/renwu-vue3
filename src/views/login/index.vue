@@ -39,6 +39,8 @@
         </template>
       </div>
     </div>
+
+    <van-button @click="doWexinLogin">微信登录</van-button>
   </div>
 </template>
 
@@ -46,6 +48,7 @@
 import { computed, ref } from 'vue'
 import { useUserStore } from '@/stores/user'
 import { useRouter, useRoute } from 'vue-router'
+import { getWexinAuthUrl } from '@/service/auto-service/账户模块';
 
 const userStore = useUserStore()
 const router = useRouter()
@@ -61,6 +64,16 @@ const loading = ref(false)
 const disabled = computed(() => {
   return !account.value.length || password.value.length < 6
 })
+
+const doWexinLogin = () => {
+  getWexinAuthUrl({
+    redirect: 'http://wx.airtlab.com/wexin-login-callback'
+  }).then((res) => {
+    if (res.data && res.data.uri) {
+      window.location.href = res.data.uri;
+    }
+  })
+}
 
 const handleGetCode = () => {}
 const handleClick = () => {

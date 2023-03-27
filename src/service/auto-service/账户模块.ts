@@ -105,7 +105,7 @@ export const queryWxLoginResult = (params: {}) => {
 }
 
 export const getWexinAuthUrl = (params: GetWxQrCodeForAuthCodeDTO) => {
-  return request<{}>({
+  return request<GetWexinAuthUrlVo>({
     url: "/api/account/getWexinAuthUrl",
     method: "POST",
     data: params
