@@ -26,4 +26,4 @@ export const isProd = process.env.NODE_ENV === 'production';
 
 export const host = !isProd
   ? 'http://localhost:7000'
-  : 'http://task.airtlab.com';
+  : 'https://wx.airtlab.com';

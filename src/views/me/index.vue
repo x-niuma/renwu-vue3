@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { Space } from 'vant'
+import { Space, Toast, showToast } from 'vant'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user'
 import { Button } from 'vant'
 import Page from '@/components/page/index.vue'
-import Collect from './components/collect/index.vue';
+import Collect from './components/collect/index.vue'
 import { doWalletRecharge } from '@/service/auto-service/钱包模块'
 
 const router = useRouter()
@@ -14,15 +14,47 @@ const active = ref(0)
 const toLogin = () => router.push('/login')
 const logout = () => userStore.logout()
 const recharge = () => {
-  doWalletRecharge({}).then((res) => {
-    console.log(res)
+  const timeStamp = Math.floor(new Date().getTime() / 1000)
+  doWalletRecharge({
+    timeStamp
+  }).then((res) => {
+    console.log(res.data)
+
+    showToast({
+      message: JSON.stringify(res.data)
+    })
+
+    const params = {
+      ...res.data
+    }
+
+    console.log(222, params)
+
+    setTimeout(() => {
+      ;(window as any).WeixinJSBridge.invoke('getBrandWCPayRequest', params, function (res: any) {
+        console.log(res)
+        if (res.err_msg == 'get_brand_wcpay_request:ok') {
+          showToast({
+            type: 'success',
+            message: '支付成功'
+          })
+          // 使用以上方式判断前端返回,微信团队郑重提示：
+          //res.err_msg将在用户支付成功后返回ok，但并不保证它绝对可靠。
+        } else {
+          showToast({
+            type: 'fail',
+            message: res.err_msg
+          })
+        }
+      })
+    }, 2000)
   })
 }
 </script>
 
 <template>
   <Page :tabBarProps="{ activeIndex: 2 }">
-    <div class="me-page-content"  v-if="userStore.userInfo">
+    <div class="me-page-content" v-if="userStore.userInfo">
       <div class="main-card">
         <div class="user-box ui-flex">
           <div class="ui-flex">
@@ -52,12 +84,13 @@ const recharge = () => {
             </div>
             <van-button size="small" @click="recharge">充值</van-button>
           </Space>
-          <van-button class="btn-edit ui-ml-10" size="small" round plain type="primary">编辑资料</van-button>
+          <van-button class="btn-edit ui-ml-10" size="small" round plain type="primary"
+            >编辑资料</van-button
+          >
         </div>
       </div>
       <van-tabs class="scroll" v-model:active="active">
-        <van-tab title="笔记">
-        </van-tab>
+        <van-tab title="笔记"> </van-tab>
         <van-tab title="收藏"></van-tab>
         <van-tab title="点赞"></van-tab>
       </van-tabs>
