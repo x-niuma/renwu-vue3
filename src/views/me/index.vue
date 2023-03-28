@@ -14,12 +14,7 @@ const active = ref(0)
 const toLogin = () => router.push('/login')
 const logout = () => userStore.logout()
 const recharge = () => {
-  const timeStamp = Math.floor(new Date().getTime() / 1000)
-  doWalletRecharge({
-    timeStamp
-  }).then((res) => {
-    console.log(res.data)
-
+  doWalletRecharge({ amount: 10 }).then((res) => {
     showToast({
       message: JSON.stringify(res.data)
     })
@@ -28,7 +23,7 @@ const recharge = () => {
       ...res.data
     }
 
-    console.log(222, params)
+    console.log(`下单参数`, params)
 
     setTimeout(() => {
       ;(window as any).WeixinJSBridge.invoke('getBrandWCPayRequest', params, function (res: any) {
