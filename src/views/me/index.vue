@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { Space, Toast, showToast } from 'vant'
+import { Space, showToast } from 'vant'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user'
 import { Button } from 'vant'
@@ -65,7 +65,6 @@ const recharge = () => {
               <div class="words">{{ userStore.userInfo.nickname }}</div>
             </div>
           </div>
-          <Button class="btn-edit" @click="logout" size="small" type="primary">退出登录</Button>
         </div>
         <div class="ui-mt-30 ui-fs-14 ui-flex">
           <Space>
@@ -77,11 +76,21 @@ const recharge = () => {
               <span>关注</span>
               <span>(4)</span>
             </div>
-            <van-button size="small" @click="recharge">充值</van-button>
           </Space>
-          <van-button class="btn-edit ui-ml-10" size="small" round plain type="primary"
-            >编辑资料</van-button
-          >
+          <div>
+            <van-button
+              class="btn-edit ui-ml-10"
+              size="small"
+              round
+              plain
+              type="primary"
+              @click="recharge"
+              >钱包充值</van-button
+            >
+            <van-button class="btn-edit ui-ml-10" size="small" round plain type="primary"
+              >编辑资料</van-button
+            >
+          </div>
         </div>
       </div>
       <van-tabs class="scroll" v-model:active="active">
@@ -89,7 +98,6 @@ const recharge = () => {
         <van-tab title="收藏"></van-tab>
         <van-tab title="点赞"></van-tab>
       </van-tabs>
-
       <div class="card-content">
         <Collect />
       </div>
@@ -102,7 +110,8 @@ const recharge = () => {
 
 <style lang="less" scoped>
 .me-page-content {
-  background-color: #2a2a66;
+  color: #fff;
+  background-color: #525255;
 }
 
 .main-card {
@@ -110,7 +119,6 @@ const recharge = () => {
   padding-top: 40px;
   padding-left: 16px;
   padding-right: 16px;
-  color: #fff;
   .words {
     font-size: 14px;
   }
@@ -118,10 +126,7 @@ const recharge = () => {
     font-size: 18px;
   }
   .btn-edit {
-    background: transparent;
-    color: #fff;
     height: 28px;
-    border-color: #fff;
   }
 }
 .no-login-box {
@@ -143,6 +148,7 @@ const recharge = () => {
 .card-content {
   overflow: hidden;
   padding: 0 12px;
+  color: #000;
   background-color: #f5f5f5;
 }
 </style>
