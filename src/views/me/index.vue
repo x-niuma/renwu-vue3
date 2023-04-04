@@ -5,14 +5,13 @@ import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user'
 import { Button } from 'vant'
 import Page from '@/components/page/index.vue'
-import Collect from './components/collect/index.vue'
 import { doWalletRecharge } from '@/service/auto-service/钱包模块'
 
 const router = useRouter()
 const userStore = useUserStore()
-const active = ref(0)
 const toLogin = () => router.push('/login')
 const logout = () => userStore.logout()
+const goProfile = () => router.push('/me/user-info')
 const recharge = () => {
   doWalletRecharge({ amount: 10 }).then((res) => {
     showToast({
@@ -87,20 +86,26 @@ const recharge = () => {
               @click="recharge"
               >钱包充值</van-button
             >
-            <van-button class="btn-edit ui-ml-10" size="small" round plain type="primary"
+            <van-button
+              class="btn-edit ui-ml-10"
+              size="small"
+              @click="goProfile"
+              round
+              plain
+              type="primary"
               >编辑资料</van-button
             >
           </div>
         </div>
       </div>
-      <van-tabs class="scroll" v-model:active="active">
-        <van-tab title="笔记"> </van-tab>
-        <van-tab title="收藏"></van-tab>
-        <van-tab title="点赞"></van-tab>
-      </van-tabs>
-      <div class="card-content">
-        <Collect />
-      </div>
+      <van-cell-group title="项目">
+        <van-cell title="收藏" is-link to="/project-track" />
+        <van-cell title="点赞" is-link to="/project-track"  />
+      </van-cell-group>
+      <van-cell-group title="话题">
+        <van-cell title="收藏" is-link to="/project-track" />
+        <van-cell title="点赞" is-link to="/project-track" />
+      </van-cell-group>
     </div>
     <div class="main-card no-login-box ui-text-center ui-flex" v-else>
       <Button @click="toLogin" size="small" type="primary">点击登录</Button>
@@ -109,16 +114,12 @@ const recharge = () => {
 </template>
 
 <style lang="less" scoped>
-.me-page-content {
-  color: #fff;
-  background-color: #525255;
-}
-
 .main-card {
   height: 180px;
   padding-top: 40px;
   padding-left: 16px;
   padding-right: 16px;
+  background-color: #fff;
   .words {
     font-size: 14px;
   }
@@ -138,8 +139,6 @@ const recharge = () => {
 .scroll {
   flex: 1;
   background-color: #fff;
-  border-top-right-radius: 10px;
-  border-top-left-radius: 10px;
   :deep(.van-tabs__nav) {
     background: transparent;
   }

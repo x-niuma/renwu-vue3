@@ -12,6 +12,10 @@ import { ref, onMounted } from 'vue';
 import { queryListForUser } from '@/service/auto-service/数据采集';
 import { queryListByIdList } from '@/service/auto-service/项目模块';
 
+const props = defineProps<{
+  action_type: number;
+}>()
+
 const list = ref<(TrackItemVo & {
   entity: ProjectItemVo
 })[]>([]);
@@ -19,7 +23,7 @@ const list = ref<(TrackItemVo & {
 const getList = async () => {
   const trackRes = await queryListForUser({
     entity_type: 1,
-    action_type: 1
+    action_type: props.action_type
   })
   const trackList = trackRes.data.list;
 

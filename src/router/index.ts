@@ -9,6 +9,7 @@ import UserRankView from '@/views/rank/index.vue'
 import ProjectDetail from '@/views/project/detail/index.vue';
 import ProjectEdit from '@/views/project/edit/index.vue';
 import ProjectAdd from '@/views/project/edit/add.vue';
+import ProjectTrack from '@/views/me/project-track/index.vue';
 import ProjectSearch from '@/views/project/search/index.vue';
 import MeUserInfo from '@/views/me/user-info/index.vue';
 import WexinLoginCallback from '@/views/wexin-login-callback/index.vue';
@@ -53,6 +54,11 @@ const router = createRouter({
       path: '/project-detail',
       name: 'project-detail',
       component: ProjectDetail
+    },
+    {
+      path: '/project-track',
+      name: 'project-track',
+      component: ProjectTrack
     },
     {
       path: '/project-edit',
