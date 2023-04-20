@@ -1,3 +1,4 @@
+// 底部菜单
 export const tabbar = [
   {
     span: '首页',
@@ -22,8 +23,10 @@ export const tabbar = [
   }
 ]
 
+// 是否为生成环境
 export const isProd = process.env.NODE_ENV === 'production';
 
+// API URI
 export const host = !isProd
   ? 'http://localhost:7000'
   : 'https://wx.airtlab.com';

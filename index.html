@@ -12,7 +12,9 @@
     <div id="app"></div>
     <script type="module" src="/src/main.ts"></script>
     <script>
-      // var vConsole = new window.VConsole();
+      if (window.location.href.includes('__debug__')) {
+        var vConsole = new window.VConsole();
+      }
     </script>
   </body>
 </html>
