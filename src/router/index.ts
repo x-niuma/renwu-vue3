@@ -13,6 +13,7 @@ import ProjectTrack from '@/views/me/project-track/index.vue';
 import ProjectSearch from '@/views/project/search/index.vue';
 import MeUserInfo from '@/views/me/user-info/index.vue';
 import WexinLoginCallback from '@/views/wexin-login-callback/index.vue';
+import WalletHome from '@/views/wallet/wallet/index.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -45,7 +46,7 @@ const router = createRouter({
     {
       path: '/wallet',
       name: 'wallet',
-      component: import('@/views/wallet/wallet/index.vue')
+      component: WalletHome
     },
     {
       path: "/me/user-info",
