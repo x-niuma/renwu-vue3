@@ -51,7 +51,7 @@ const recharge = () => router.push('/wallet');
               plain
               type="primary"
               @click="recharge"
-              >钱包充值</van-button
+              >我的钱包</van-button
             >
             <van-button
               class="btn-edit ui-ml-10"

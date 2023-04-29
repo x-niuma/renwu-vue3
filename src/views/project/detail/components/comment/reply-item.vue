@@ -17,7 +17,7 @@
           <span class="sign-text" v-else>{{ comment.content }}</span> -->
         <span class="sign-text">{{ item.content }}</span>
         <div class="comment-date">
-          <span class="date">{{ item.create_time }}</span>
+          <span class="date">{{ formatDate(item.create_time) }}</span>
           <div class="comment-action">
             <van-icon name="chat-o" class="btn-reply" @click="handleReply" />
             <van-icon name="ellipsis" />
@@ -30,11 +30,13 @@
 
 <script lang="ts" setup>
 import { useProjectDetailStore } from '@/stores/project-detail';
+import { formatDate } from '@/utils/date';
 import { defineProps } from 'vue'
 
 const props = defineProps<{
   item: ReplyItemVo
 }>()
+
 
 const projectDetailStore = useProjectDetailStore()
 

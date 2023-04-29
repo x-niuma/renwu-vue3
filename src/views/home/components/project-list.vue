@@ -55,6 +55,7 @@ import InlineTag from '@/components/inline-tag/index.vue'
 import avatar from '@/assets/img/avatar.png'
 import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
+import { formatDate } from '@/utils/date'
 
 const props = defineProps({
   appTypeId: {
@@ -98,7 +99,12 @@ async function getDataList() {
   }
 
   let res = await projectService.queryList(params)
-  list.value = list.value.concat(res.data.list)
+  list.value = list.value.concat(res.data.list).map((it) =>  {
+    return {
+      ...it,
+      create_time: formatDate(it.create_time)
+    }
+  })
   total.value = res.data.total
   hasMore.value = list.value.length < total.value
   loading.value = false

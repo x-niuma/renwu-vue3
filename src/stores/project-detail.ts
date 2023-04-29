@@ -6,6 +6,7 @@ import {
 } from '@/service/auto-service/评论模块'
 import { defineStore, acceptHMRUpdate } from 'pinia'
 import * as ProjectAPI from '@/service/auto-service/项目模块'
+import { formatDate } from '@/utils/date'
 
 const initState = {
   detail: null as null | ProjectItemVo,
@@ -25,7 +26,8 @@ export const useProjectDetailStore = defineStore('project-detail', {
     async queryDetail(projectId: number) {
       let res = await ProjectAPI.queryDetail({
         id: projectId
-      })
+      });
+      res.data.create_time = formatDate(res.data.create_time)
       this.$patch({ detail: res.data })
     },
 
@@ -34,7 +36,12 @@ export const useProjectDetailStore = defineStore('project-detail', {
         ...props
       })
       this.$patch({
-        comments: [...this.comments, ...res.data.list]
+        comments: [...this.comments, ...res.data.list].map((it) => {
+          return {
+            ...it,
+            create_time: formatDate(it.create_time)
+          }
+        })
       })
       return res
     },
@@ -46,7 +53,12 @@ export const useProjectDetailStore = defineStore('project-detail', {
         ...props
       }).then((res) => {
         current.reply_info.has_more = res.data.has_more
-        current.reply_info.list = [...current.reply_info.list, ...res.data.list]
+        current.reply_info.list = [...current.reply_info.list, ...res.data.list].map((it) => {
+          return {
+            ...it,
+            create_time: formatDate(it.create_time)
+          }
+        })
         current.reply_info.total = res.data.total
       })
     },

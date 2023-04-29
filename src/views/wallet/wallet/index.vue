@@ -6,7 +6,7 @@
         <van-icon name="closed-eye" />
       </div>
       <div>
-        <span class="money-value">56,300</span>
+        <span class="money-value">{{ totalAmount }}</span>
       </div>
       <div class="card-footer ui-flex">
         <span>XXX</span>
@@ -20,7 +20,13 @@
       </div>
     </div>
     <van-tabs class="wallet-tabs" v-model:active="activeName" shrink>
-      <van-tab title="全部" name="a"></van-tab>
+      <van-tab title="全部" name="a">
+        <div>
+          <div v-for="item in flowList">
+            <van-cell :title="`${numeral(item.amount / 100).format('0,0[.]00')}`" :label="item.description" :value="formatDate(item.create_time)" />
+          </div>
+        </div>
+      </van-tab>
       <van-tab title="收入" name="b"></van-tab>
       <van-tab title="支出" name="c"></van-tab>
     </van-tabs>
@@ -28,25 +34,34 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import Page from '@/components/page/index.vue'
-import { doWalletRecharge, queryUserWalletFlow } from '@/service/auto-service/钱包模块';
+import { doWalletRecharge, queryUserWalletAccount, queryUserWalletFlow } from '@/service/auto-service/钱包模块';
 import { showToast } from 'vant';
+import numeral from 'numeral';
+import dayjs from 'dayjs'
+import { formatDate } from '@/utils/date';
 
-const activeName = ref('a')
+const activeName = ref('a');
+const wAccount = ref<QueryWalletAccountVO|null>(null);
+
+const totalAmount = computed(() => {
+  const value = wAccount.value ? wAccount.value.amount : '0.00';
+  const money = Number(value) / 100;
+  return numeral(money).format('0,0[.]00')
+})
+
+const flowList = ref<WalletAccountFlowEntity[]>([]);
 
 const doCharge = () => {
   doWalletRecharge({ amount: 10 }).then((res) => {
     showToast({
       message: JSON.stringify(res.data)
     })
-
     const params = {
       ...res.data
     }
-
     console.log(`下单参数`, params)
-
     setTimeout(() => {
       ;(window as any).WeixinJSBridge.invoke('getBrandWCPayRequest', params, function (res: any) {
         console.log(res)
@@ -57,6 +72,9 @@ const doCharge = () => {
           })
           // 使用以上方式判断前端返回,微信团队郑重提示：
           //res.err_msg将在用户支付成功后返回ok，但并不保证它绝对可靠。
+          setTimeout(() => {
+            initData()
+          }, 2000)
         } else {
           showToast({
             type: 'fail',
@@ -68,10 +86,17 @@ const doCharge = () => {
   })
 }
 
-onMounted(() => {
-  queryUserWalletFlow({}).then(res => {
-    console.log(res)
+const initData = () => {
+  queryUserWalletAccount({}).then(res => {
+    wAccount.value = res.data
   })
+  queryUserWalletFlow({}).then(res => {
+    flowList.value = res.data.list
+  })
+}
+
+onMounted(() => {
+  initData()
 })
 </script>
 
