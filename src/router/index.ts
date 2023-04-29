@@ -43,6 +43,11 @@ const router = createRouter({
       component: LoginView
     },
     {
+      path: '/wallet',
+      name: 'wallet',
+      component: import('@/views/wallet/wallet/index.vue')
+    },
+    {
       path: "/me/user-info",
       name: 'user-info',
       meta: {

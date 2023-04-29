@@ -1,49 +1,16 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { Space, showToast } from 'vant'
+import { Space } from 'vant'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user'
 import { Button } from 'vant'
 import Page from '@/components/page/index.vue'
-import { doWalletRecharge } from '@/service/auto-service/钱包模块'
 
 const router = useRouter()
 const userStore = useUserStore()
 const toLogin = () => router.push('/login')
 const logout = () => userStore.logout()
 const goProfile = () => router.push('/me/user-info')
-const recharge = () => {
-  doWalletRecharge({ amount: 10 }).then((res) => {
-    showToast({
-      message: JSON.stringify(res.data)
-    })
-
-    const params = {
-      ...res.data
-    }
-
-    console.log(`下单参数`, params)
-
-    setTimeout(() => {
-      ;(window as any).WeixinJSBridge.invoke('getBrandWCPayRequest', params, function (res: any) {
-        console.log(res)
-        if (res.err_msg == 'get_brand_wcpay_request:ok') {
-          showToast({
-            type: 'success',
-            message: '支付成功'
-          })
-          // 使用以上方式判断前端返回,微信团队郑重提示：
-          //res.err_msg将在用户支付成功后返回ok，但并不保证它绝对可靠。
-        } else {
-          showToast({
-            type: 'fail',
-            message: res.err_msg
-          })
-        }
-      })
-    }, 2000)
-  })
-}
+const recharge = () => router.push('/wallet');
 </script>
 
 <template>

@@ -56,7 +56,7 @@ export const doWalletWithdraw = (params: {}) => {
   });
 }
 
-export const doWalletRecharge = (params: {}) => {
+export const doWalletRecharge = (params: DoWalletRechargeDTO) => {
   return request<{}>({
     url: "/api/wallet/doWalletRecharge",
     method: "POST",

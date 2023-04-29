@@ -133,6 +133,12 @@ declare interface GetWexinAuthUrlVo {
   img: string;
 }
 
+declare interface GetUserReputationFlowDTO {
+  pageSize?: number;
+  pageIndex?: number;
+  skip?: number;
+}
+
 declare interface QueryCommentListDTO {
   pageSize?: number;
   pageIndex?: number;
@@ -547,5 +553,9 @@ declare interface QueryUserWalletBankVO {
   bank_account: string;
   bank_no: string;
 }[];
+}
+
+declare interface DoWalletRechargeDTO {
+  amount: number;
 }
 
