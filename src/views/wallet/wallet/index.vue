@@ -10,7 +10,10 @@
       </div>
       <div class="card-footer ui-flex">
         <span>XXX</span>
-        <span>SSS</span>
+        <span @click="toBank">
+          我的银行卡
+          <van-icon name="arrow" />
+        </span>
       </div>
       <div class="actions">
         <van-space>
@@ -41,6 +44,7 @@ import { showToast } from 'vant';
 import numeral from 'numeral';
 import dayjs from 'dayjs'
 import { formatDate } from '@/utils/date';
+import router from '@/router';
 
 const activeName = ref('a');
 const wAccount = ref<QueryWalletAccountVO|null>(null);
@@ -50,6 +54,8 @@ const totalAmount = computed(() => {
   const money = Number(value) / 100;
   return numeral(money).format('0,0[.]00')
 })
+
+const toBank = () => router.push('/wallet/bank');
 
 const flowList = ref<WalletAccountFlowEntity[]>([]);
 
@@ -115,6 +121,7 @@ onMounted(() => {
   margin-top: 12px;
   padding-inline: 20px;
   padding-block: 20px;
+  padding-right: 0;
   border-radius: 2px;
   color: #fff;
   background: linear-gradient(to right, #f78f15, #f5502d);
@@ -128,6 +135,7 @@ onMounted(() => {
   }
   .card-footer {
     margin-top: 10px;
+    padding-right: 10px;
   }
   .actions {
     position: absolute;

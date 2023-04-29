@@ -27,6 +27,6 @@ export const tabbar = [
 export const isProd = process.env.NODE_ENV === 'production';
 
 // API URI
-export const host = !isProd
+export const host = isProd
   ? 'http://localhost:7000'
   : 'https://wx.airtlab.com';
