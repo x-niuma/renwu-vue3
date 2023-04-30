@@ -1,8 +1,7 @@
 <template>
   <div class="page">
     <div class="header" v-if="title">
-      <van-nav-bar :title="title" left-arrow @click-left="onClickLeft" />
-
+      <van-nav-bar :title="title" left-arrow @click-left="onClickLeft" :right-text="rightText" />
     </div>
     <div
       class="body"
@@ -42,11 +41,14 @@ export default {
     },
     title: {
       type: String
+    },
+    rightText: {
+      type: String
     }
   },
   setup(props) {
-    const router = useRouter();
-    const isStr = typeof props.title === 'string';
+    const router = useRouter()
+    const isStr = typeof props.title === 'string'
     return {
       isStr,
       onClickLeft() {

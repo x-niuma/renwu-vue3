@@ -555,6 +555,12 @@ declare interface QueryUserWalletBankVO {
 }[];
 }
 
+declare interface DoBindWalletBankDTO {
+  bank_account: string;
+  bank_no: string;
+  bank_name: string;
+}
+
 declare interface DoWalletRechargeDTO {
   amount: number;
 }

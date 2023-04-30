@@ -24,7 +24,7 @@ export const queryUserWalletBank = (params: {}) => {
   });
 }
 
-export const doBindWalletBank = (params: {}) => {
+export const doBindWalletBank = (params: DoBindWalletBankDTO) => {
   return request<{}>({
     url: "/api/wallet/doBindWalletBank",
     method: "POST",

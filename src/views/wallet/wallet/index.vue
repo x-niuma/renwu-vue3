@@ -9,7 +9,7 @@
         <span class="money-value">{{ totalAmount }}</span>
       </div>
       <div class="card-footer ui-flex">
-        <span>XXX</span>
+        <span>白金VIP</span>
         <span @click="toBank">
           我的银行卡
           <van-icon name="arrow" />
@@ -125,6 +125,7 @@ onMounted(() => {
   border-radius: 2px;
   color: #fff;
   background: linear-gradient(to right, #f78f15, #f5502d);
+  /*background: linear-gradient(to right, #5b5a59, #545252);*/
   .total-text {
     font-size: 16px;
     font-weight: bold;
