@@ -30,13 +30,17 @@ import { doWalletWithdraw } from '@/service/auto-service/钱包模块'
 const show = ref(false)
 const value = ref('10.00')
 const onInput = (value) => showToast(value)
-const onDelete = () => showToast('删除')
+const onDelete = () => showToast('删除');
+
 const submit = () => {
   doWalletWithdraw({
     password: '123456',
     amount: Number(value.value)
   }).then((res) => {
-    console.log(res)
+    showToast({
+      type: 'success',
+      message: '提交成功'
+    })
   })
 }
 </script>
