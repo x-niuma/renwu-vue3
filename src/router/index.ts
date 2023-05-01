@@ -16,6 +16,7 @@ import WexinLoginCallback from '@/views/wexin-login-callback/index.vue';
 import WalletHome from '@/views/wallet/wallet/index.vue'
 import WalletBank from '@/views/wallet/bank/index.vue'
 import WalletBankBind from '@/views/wallet/bank/bind.vue'
+import WalletWithdraw from '@/views/wallet/withdraw/index.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -59,6 +60,11 @@ const router = createRouter({
       path: '/wallet/bank/bind',
       name: 'wallet-bank-bind',
       component: WalletBankBind
+    },
+    {
+      path: '/wallet/withdraw',
+      name: 'wallet-withdraw',
+      component: WalletWithdraw
     },
     {
       path: "/me/user-info",

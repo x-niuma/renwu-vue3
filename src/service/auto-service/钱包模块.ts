@@ -32,7 +32,7 @@ export const doBindWalletBank = (params: DoBindWalletBankDTO) => {
   });
 }
 
-export const doRemoveWalletBank = (params: {}) => {
+export const doRemoveWalletBank = (params: DoRemoveWalletBankDTO) => {
   return request<{}>({
     url: "/api/wallet/doRemoveWalletBank",
     method: "POST",
@@ -40,7 +40,7 @@ export const doRemoveWalletBank = (params: {}) => {
   });
 }
 
-export const setWalletPassword = (params: {}) => {
+export const setWalletPassword = (params: SetWalletPasswordDTO) => {
   return request<{}>({
     url: "/api/wallet/setWalletPassword",
     method: "POST",
@@ -48,7 +48,7 @@ export const setWalletPassword = (params: {}) => {
   });
 }
 
-export const doWalletWithdraw = (params: {}) => {
+export const doWalletWithdraw = (params: DoWalletWithdrawDto) => {
   return request<{}>({
     url: "/api/wallet/doWalletWithdraw",
     method: "POST",

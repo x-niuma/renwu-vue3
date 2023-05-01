@@ -18,7 +18,7 @@
       <div class="actions">
         <van-space>
           <van-button class="btn" type="primary" plain size="small" @click="doCharge">充 值</van-button>
-          <van-button class="btn" size="small" plain>提 现</van-button>
+          <van-button class="btn" size="small" plain @click="toWithdraw">提 现</van-button>
         </van-space>
       </div>
     </div>
@@ -42,7 +42,6 @@ import Page from '@/components/page/index.vue'
 import { doWalletRecharge, queryUserWalletAccount, queryUserWalletFlow } from '@/service/auto-service/钱包模块';
 import { showToast } from 'vant';
 import numeral from 'numeral';
-import dayjs from 'dayjs'
 import { formatDate } from '@/utils/date';
 import router from '@/router';
 
@@ -56,6 +55,7 @@ const totalAmount = computed(() => {
 })
 
 const toBank = () => router.push('/wallet/bank');
+const toWithdraw = () => router.push('/wallet/withdraw');
 
 const flowList = ref<WalletAccountFlowEntity[]>([]);
 

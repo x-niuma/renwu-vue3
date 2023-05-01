@@ -561,6 +561,19 @@ declare interface DoBindWalletBankDTO {
   bank_name: string;
 }
 
+declare interface DoRemoveWalletBankDTO {
+  id: number;
+}
+
+declare interface SetWalletPasswordDTO {
+  password: string;
+}
+
+declare interface DoWalletWithdrawDto {
+  password: string;
+  amount: number;
+}
+
 declare interface DoWalletRechargeDTO {
   amount: number;
 }
