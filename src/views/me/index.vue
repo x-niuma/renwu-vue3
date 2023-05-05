@@ -73,6 +73,9 @@ const recharge = () => router.push('/wallet');
         <van-cell title="收藏" is-link to="/project-track" />
         <van-cell title="点赞" is-link to="/project-track" />
       </van-cell-group>
+      <div class="logout-box">
+        <Button @click="logout" block type="primary">退出登录</Button>
+      </div>
     </div>
     <div class="main-card no-login-box ui-text-center ui-flex" v-else>
       <Button @click="toLogin" size="small" type="primary">点击登录</Button>
@@ -116,5 +119,9 @@ const recharge = () => router.push('/wallet');
   padding: 0 12px;
   color: #000;
   background-color: #f5f5f5;
+}
+
+.logout-box {
+  padding: 16px;
 }
 </style>
