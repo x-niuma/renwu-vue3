@@ -3,7 +3,7 @@ import { defineStore, acceptHMRUpdate } from 'pinia'
 import * as store from 'store'
 import * as UserAPI from '@/service/auto-service/账户模块'
 import { sleep } from '@/utils/sleep'
-import { wexinLoginByAuthCode } from '@/service/auto-service/账户模块'
+import { getWexinAuthUrl, wexinLoginByAuthCode } from '@/service/auto-service/账户模块'
 import type { IUserInfo } from '@/types/IUserInfo'
 
 export const useUserStore = defineStore('user', {
@@ -50,6 +50,16 @@ export const useUserStore = defineStore('user', {
       store.set('token', data.token)
       store.set('userInfo', data)
       return true
+    },
+
+    doWexinLogin () {
+      getWexinAuthUrl({
+        redirect: 'http://wx.airtlab.com/wexin-login-callback'
+      }).then((res) => {
+        if (res.data && res.data.uri) {
+          window.location.href = res.data.uri;
+        }
+      })
     },
 
     async checkLogin() {
