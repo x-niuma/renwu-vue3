@@ -60,19 +60,14 @@ export const useUserStore = defineStore("user", {
     },
 
     async checkLogin () {
-      try {
-        const res = await UserAPI.checkLogin({});
-        const data = res.data;
-        await sleep();
-        this.$patch({
-          isLogin: data.status,
-          authFinished: true
-        });
-        return data.status;
-      } catch (e) {
-        e;
-        return false;
-      }
+      const res = await UserAPI.checkLogin({});
+      const data = res.data;
+      await sleep();
+      this.$patch({
+        isLogin: data.status,
+        authFinished: true
+      });
+      return data.status;
     }
   },
 });

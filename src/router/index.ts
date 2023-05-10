@@ -49,7 +49,10 @@ const router = createRouter({
     {
       path: '/wallet',
       name: 'wallet',
-      component: WalletHome
+      component: WalletHome,
+      meta: {
+        requireAuth: true
+      }
     },
     {
       path: '/wallet/bank',
