@@ -69,16 +69,7 @@ const disabled = computed(() => {
   return !account.value.length || password.value.length < 6
 })
 
-const doWexinLogin = () => {
-  getWexinAuthUrl({
-    redirect: 'http://wx.airtlab.com/wexin-login-callback'
-  }).then((res) => {
-    if (res.data && res.data.uri) {
-      window.location.href = res.data.uri;
-    }
-  })
-}
-
+const doWexinLogin = () => userStore.doWexinLogin();
 const handleGetCode = () => {}
 const handleClick = () => {
   userStore
