@@ -10,12 +10,6 @@ router.beforeEach(async (to, from, next) => {
   const hasToken = getToken()
   const userStore = useUserStore()
 
-  if (!to.meta || !to.meta!.requireAuth) {
-    // 不需要登录态
-    next()
-    return
-  }
-
   if (userStore.userInfo) {
     // 已经有用户信息
     next()
@@ -44,6 +38,13 @@ router.beforeEach(async (to, from, next) => {
       setToken('')
       next(`/login?redirect=${to.path}`)
       NProgress.done()
+    }
+
+    if (!to.meta || !to.meta!.requireAuth) {
+      // 不需要登录态
+      await userStore.checkLogin()
+      next()
+      return
     }
 
     try {
