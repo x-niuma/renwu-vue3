@@ -17,6 +17,7 @@ import WalletHome from '@/views/wallet/wallet/index.vue'
 import WalletBank from '@/views/wallet/bank/index.vue'
 import WalletBankBind from '@/views/wallet/bank/bind.vue'
 import WalletWithdraw from '@/views/wallet/withdraw/index.vue'
+import BindEmail from '@/views/me/bind-email/index.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -76,6 +77,22 @@ const router = createRouter({
         requireAuth: true
       },
       component: MeUserInfo
+    },
+    {
+      path: "/me/bind-email",
+      name: 'bind-email',
+      meta: {
+        requireAuth: true
+      },
+      component: BindEmail
+    },
+    {
+      path: "/me/bind-mobile",
+      name: 'bind-mobile',
+      meta: {
+        requireAuth: true
+      },
+      component: () => import('@/views/me/bind-mobile/index.vue')
     },
     {
       path: '/project-detail',

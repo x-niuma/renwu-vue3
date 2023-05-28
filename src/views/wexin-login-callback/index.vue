@@ -1,7 +1,6 @@
 <template>
   <div>
-    登录中...
-    {{ query }}
+    <van-loading />
   </div>
 </template>
 
@@ -13,7 +12,6 @@ import { useUserStore } from '@/stores/user'
 const userStore = useUserStore()
 const route = useRoute()
 const router = useRouter()
-
 const query = route.query
 
 onMounted(() => {
