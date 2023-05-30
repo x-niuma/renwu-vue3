@@ -1,3 +1,7 @@
+declare interface SendSmsCodeDto {
+  mobile: string;
+}
+
 declare interface RegisterDto {
   account: string;
   password?: string;

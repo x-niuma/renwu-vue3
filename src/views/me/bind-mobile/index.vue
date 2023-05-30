@@ -9,7 +9,7 @@
       />
       <van-field v-model="code" center clearable label="验证码" placeholder="请输入验证码">
         <template #button>
-          <van-button size="small" type="primary">发送验证码</van-button>
+          <van-button size="small" type="primary" @click="getCode">发送验证码</van-button>
         </template>
       </van-field>
       <div class="ui-m-16">
@@ -26,6 +26,7 @@
   import { useUserStore } from '@/stores/user'
   import Page from '@/components/page/index.vue'
   import { updateUserInfo } from '@/service/auto-service/账户模块'
+import { sendSmsCode } from '@/service/auto-service/sms-pop'
   
   const loading = ref(false)
   
@@ -41,6 +42,12 @@
       mobile: mobile.value
     })
     loading.value = false
+  }
+
+  const getCode = () => {
+    sendSmsCode({ mobile: mobile.value }).then((res) => {
+      console.log(res)
+    })
   }
   
   onMounted(() => {
