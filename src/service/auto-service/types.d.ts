@@ -127,6 +127,16 @@ declare interface UpdatePwdRes {
   status: boolean;
 }
 
+declare interface BindMobileDto {
+  mobile: string;
+  code: string;
+}
+
+declare interface BindEmailDto {
+  email: string;
+  code: string;
+}
+
 declare interface GetWxQrCodeForAuthCodeDTO {
   redirect: string;
 }

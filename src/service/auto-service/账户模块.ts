@@ -96,6 +96,22 @@ export const updatePassword = (params: UpdatePasswordDto) => {
   });
 }
 
+export const bindMobile = (params: BindMobileDto) => {
+  return request<{}>({
+    url: "/api/account/bindMobile",
+    method: "POST",
+    data: params
+  });
+}
+
+export const bindEmail = (params: BindEmailDto) => {
+  return request<{}>({
+    url: "/api/account/bindEmail",
+    method: "POST",
+    data: params
+  });
+}
+
 export const queryWxLoginResult = (params: {}) => {
   return request<{}>({
     url: "/api/account/queryWxLoginResult",
