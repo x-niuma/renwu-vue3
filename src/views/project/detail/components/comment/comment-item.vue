@@ -1,28 +1,19 @@
 <template>
-  <div class="comment ui-flex ui-flex-jc-start ui-flex-align-start">
-    <div class="side">
-      <img class="avatar" :src="item.author_avatar" alt="" />
-    </div>
-    <div class="main ui-flex-auto ui-border-bottom">
-      <div class="ui-flex ui-flex-jc-start ui-flex-align-start comment-header">
+  <div class="comment ui-border-bottom">
+    <div class="ui-flex ui-flex-jc-start ui-flex-align-start comment-header">
+      <div class="ui-flex ui-flex-jc-start ui-flex-align-start">
+        <img class="avatar" :src="item.author_avatar" alt="" />
         <div class="nickname">{{ item.author_name }}</div>
       </div>
+      <div class="comment-action">
+        <van-icon name="chat-o" class="btn-reply" @click="handleReply" />
+        <van-icon name="ellipsis" />
+      </div>
+    </div>
+    <div class="ui-ml-34">
       <div class="comment-body">
-        <!-- <span v-if="parent">
-            <span class="sign-replay" @click="handleReply">回复</span>
-            <span class="sign-quote">@</span>
-            <span class="sign-name">{{ parent.userInfo.nickname }}:</span>
-            <span class="sign-text">{{ comment.content }}</span>
-          </span>
-          <span class="sign-text" v-else>{{ comment.content }}</span> -->
         <span class="sign-text">{{ item.content }}</span>
-        <div class="comment-date">
-          <span class="date">{{ item.create_time }}</span>
-          <div class="comment-action">
-            <van-icon name="chat-o" class="btn-reply" @click="handleReply" />
-            <van-icon name="ellipsis" />
-          </div>
-        </div>
+        <span class="date">{{ fromNow(item.create_time) }}</span>
       </div>
       <div class="comment-child" v-if="list.length">
         <ReplyItem v-for="(child, childIndex) in list" :item="child" :key="childIndex" />
@@ -37,9 +28,10 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed, defineProps, onMounted } from 'vue'
+import { ref, computed, defineProps } from 'vue'
 import ReplyItem from './reply-item.vue'
 import { useProjectDetailStore } from '@/stores/project-detail'
+import { fromNow } from '@/utils/date'
 
 const projectDetailStore = useProjectDetailStore()
 

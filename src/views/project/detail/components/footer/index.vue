@@ -14,6 +14,7 @@
         >取消</van-button
       >
     </div>
+
     <div class="action-box ui-flex" v-else>
       <div class="edit-tip" @click="projectDetailStore.showEdit">
         <van-icon name="edit" />
@@ -22,12 +23,14 @@
       <div>
         <van-space :size="18">
           <div class="ui-flex">
-            <van-icon class="icon" name="like-o" />
-            <span>10</span>
+            <van-icon v-if="likeStatus" class="icon" name="like" />
+            <van-icon v-else class="icon" :name="'like-o'" />
+            <span>{{ likeCount }}</span>
           </div>
           <div class="ui-flex">
-            <van-icon class="icon" name="star-o" />
-            <span>10</span>
+            <van-icon v-if="starStatus" class="icon" name="star" />
+            <van-icon v-else class="icon" name="star-o" />
+            <span>{{ starCount }}</span>
           </div>
           <div class="ui-flex">
             <van-icon class="icon" name="chat-o" />
@@ -40,13 +43,17 @@
 </template>
 
 <script lang="ts" setup>
+import { ref, onMounted } from 'vue'
 import { useProjectDetailStore } from '@/stores/project-detail'
 import { CommentReplyTypeEnum } from '@/types/enum';
-import { ref } from 'vue'
 
 const props = defineProps<{
-  topic_id: number
-  topic_type: string
+  topic_id: number;
+  topic_type: string;
+  starStatus: boolean;
+  likeStatus: boolean;
+  likeCount: number;
+  starCount: number;
 }>()
 
 const projectDetailStore = useProjectDetailStore()

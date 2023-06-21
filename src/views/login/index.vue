@@ -131,7 +131,7 @@ const handleClick = () => {
 }
 
 .third-login {
-  width: 60%;
+  width: 86%;
   margin: 0 auto;
   text-align: center;
   margin-top: 50px;

@@ -16,6 +16,11 @@ router.beforeEach(async (to, from, next) => {
     return
   }
 
+  if (!to.meta || !to.meta!.requireAuth) {
+    next()
+    return
+  }
+
   NProgress.start()
 
   // 没有 token 肯定没登录

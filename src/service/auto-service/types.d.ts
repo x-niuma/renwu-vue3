@@ -174,6 +174,8 @@ declare interface ReplyItemVo {
   images: string;
   author_name: string;
   author_avatar: string;
+  to_name: string;
+  to_avatar: string;
 }
 
 declare interface QueryReplyListVo {
@@ -190,6 +192,8 @@ declare interface QueryReplyListVo {
   images: string;
   author_name: string;
   author_avatar: string;
+  to_name: string;
+  to_avatar: string;
 }[];
   total: number;
   has_more: boolean;
@@ -220,6 +224,8 @@ declare interface CommentItemVo {
   images: string;
   author_name: string;
   author_avatar: string;
+  to_name: string;
+  to_avatar: string;
 }[];
   total: number;
   has_more: boolean;
@@ -252,6 +258,8 @@ declare interface QueryCommentListVo {
   images: string;
   author_name: string;
   author_avatar: string;
+  to_name: string;
+  to_avatar: string;
 }[];
   total: number;
   has_more: boolean;
@@ -443,6 +451,8 @@ declare interface ProjectItemVo {
   category_name: string;
   author_name: string;
   author_avatar: string;
+  like_count: number;
+  star_count: number;
 }
 
 declare interface ProjectListVo {
@@ -466,6 +476,8 @@ declare interface ProjectListVo {
   category_name: string;
   author_name: string;
   author_avatar: string;
+  like_count: number;
+  star_count: number;
 }[];
 }
 
@@ -590,5 +602,64 @@ declare interface DoWalletWithdrawDto {
 
 declare interface DoWalletRechargeDTO {
   amount: number;
+}
+
+declare interface QueryNavListDto {
+
+}
+
+declare interface ArticleEntity {
+  id: number;
+  create_time: string;
+  update_time: string;
+  pid: number;
+  name: string;
+  content: string;
+  is_nav: number;
+  nav_id: number;
+  is_folder: number;
+}
+
+declare interface QueryNavListVo {
+  list: {
+  id: number;
+  create_time: string;
+  update_time: string;
+  pid: number;
+  name: string;
+  content: string;
+  is_nav: number;
+  nav_id: number;
+  is_folder: number;
+}[];
+}
+
+declare interface QueryTagsDto {
+
+}
+
+declare interface QueryChildrenDto {
+  id?: number;
+  name?: string;
+  is_nav?: number;
+  is_folder?: number;
+}
+
+declare interface QueryChildrenVo {
+  list: {
+  id: number;
+  create_time: string;
+  update_time: string;
+  pid: number;
+  name: string;
+  content: string;
+  is_nav: number;
+  nav_id: number;
+  is_folder: number;
+}[];
+}
+
+declare interface QueryArticleDetail {
+
 }
 

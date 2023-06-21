@@ -22,7 +22,7 @@
 import { List } from 'vant'
 import { ref, onMounted } from 'vue'
 import { CommentTopicTypeEnum } from '@/types/enum'
-import CommentItem from './item.vue'
+import CommentItem from './comment-item.vue'
 import { useProjectDetailStore } from '@/stores/project-detail'
 
 const loading = ref(false)

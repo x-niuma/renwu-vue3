@@ -7,6 +7,7 @@ import {
 import { defineStore, acceptHMRUpdate } from 'pinia'
 import * as ProjectAPI from '@/service/auto-service/项目模块'
 import { formatDate } from '@/utils/date'
+import { CommentReplyTypeEnum } from '@/types/enum'
 
 const initState = {
   detail: null as null | ProjectItemVo,
@@ -17,10 +18,10 @@ const initState = {
 }
 
 export const useProjectDetailStore = defineStore('project-detail', {
-  state: () => ({ ...initState }),
+  state: () => ({ ...JSON.parse(JSON.stringify(initState)) }),
   actions: {
     reset() {
-      this.$patch({ ...initState })
+      this.$patch({ ...JSON.parse(JSON.stringify(initState)) })
     },
 
     async queryDetail(projectId: number) {
@@ -81,7 +82,26 @@ export const useProjectDetailStore = defineStore('project-detail', {
 
     // 回复评论
     replyToComment(props: AddReplyDTO) {
-      addReply(props)
+      addReply(props).then((res) => {
+        this.comments.forEach((it) => {
+          if (it.id === props.comment_id) {
+            if (!it.reply_info) {
+              it.reply_info = {
+                list: [],
+                has_more: false,
+                total: 1
+              }
+            }
+            it.reply_info.list.unshift(res.data as any)
+          }
+        })
+        
+        if (props.reply_type === CommentReplyTypeEnum.reply) {
+       
+        } else if (props.reply_type === CommentReplyTypeEnum.comment) {
+         
+        }
+      })
     },
 
     // 清楚回复信息

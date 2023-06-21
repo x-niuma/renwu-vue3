@@ -8,7 +8,10 @@ import Page from '@/components/page/index.vue'
 const router = useRouter()
 const userStore = useUserStore()
 const toLogin = () => router.push('/login')
-const logout = () => userStore.logout()
+const logout = () => {
+  userStore.logout();
+  router.push('/login')
+}
 const goProfile = () => router.push('/me/user-info')
 const recharge = () => router.push('/wallet');
 </script>
@@ -68,10 +71,6 @@ const recharge = () => router.push('/wallet');
       <van-cell-group title="项目">
         <van-cell title="收藏" is-link to="/project-track" />
         <van-cell title="点赞" is-link to="/project-track"  />
-      </van-cell-group>
-      <van-cell-group title="话题">
-        <van-cell title="收藏" is-link to="/project-track" />
-        <van-cell title="点赞" is-link to="/project-track" />
       </van-cell-group>
       <div class="logout-box">
         <Button @click="logout" block type="primary">退出登录</Button>
