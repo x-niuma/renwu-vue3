@@ -9,25 +9,27 @@ import * as ProjectAPI from '@/service/auto-service/项目模块'
 import { formatDate } from '@/utils/date'
 import { CommentReplyTypeEnum } from '@/types/enum'
 
-const initState = {
-  detail: null as null | ProjectItemVo,
-  comments: [] as CommentItemVo[],
-  isEdit: false,
-  speakCommentInfo: null as null | CommentItemVo,
-  speakReply: null as null | ReplyItemVo
+const initState = () => {
+  return {
+    isEdit: false,
+    detail: null as null | ProjectItemVo,
+    comments: [] as CommentItemVo[],
+    speakCommentInfo: null as null | CommentItemVo,
+    speakReply: null as null | ReplyItemVo
+  }
 }
 
 export const useProjectDetailStore = defineStore('project-detail', {
-  state: () => ({ ...JSON.parse(JSON.stringify(initState)) }),
+  state: () => ({ ...initState() }),
   actions: {
     reset() {
-      this.$patch({ ...JSON.parse(JSON.stringify(initState)) })
+      this.$patch({ ...initState() })
     },
 
     async queryDetail(projectId: number) {
       let res = await ProjectAPI.queryDetail({
         id: projectId
-      });
+      })
       res.data.create_time = formatDate(res.data.create_time)
       this.$patch({ detail: res.data })
     },
@@ -95,11 +97,9 @@ export const useProjectDetailStore = defineStore('project-detail', {
             it.reply_info.list.unshift(res.data as any)
           }
         })
-        
+
         if (props.reply_type === CommentReplyTypeEnum.reply) {
-       
         } else if (props.reply_type === CommentReplyTypeEnum.comment) {
-         
         }
       })
     },

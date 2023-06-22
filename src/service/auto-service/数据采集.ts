@@ -1,6 +1,6 @@
 import { request } from "@/utils/request";
 
-export const saveActionForUser = (params: SaveActionDTO) => {
+export const saveActionForUser = (params: SaveTrackDTO) => {
   return request<{}>({
     url: "/api/track/saveActionForUser",
     method: "POST",

@@ -11,6 +11,9 @@
         topic_type="project"
         :likeStatus="likeStatus"
         :starStatus="starStatus"
+        :comment-count="projectDetailStore.detail.comment_count"
+        :on-click-like="handleClickLike"
+        :on-click-star="handleClickStar"
       />
     </div>
   </Page>
@@ -25,7 +28,7 @@ import Page from '@/components/page/index.vue'
 import Comment from './components/comment/index.vue'
 import Footer from './components/footer/index.vue'
 import { useProjectDetailStore } from '@/stores/project-detail'
-import { queryStatusForUser } from '@/service/auto-service/数据采集'
+import { queryStatusForUser, saveActionForUser } from '@/service/auto-service/数据采集'
 import { TrackActionTypeEnum, TrackEntityTypeEnum } from './utils'
 
 const route = useRoute()
@@ -34,8 +37,10 @@ const projectId = Number(route.query.id)
 const projectDetailStore = useProjectDetailStore()
 const likeStatus = ref(false)
 const starStatus = ref(false)
+const likeLoading = ref(false)
+const starLoading = ref(false)
 
-onMounted(() => {
+const initData = () => {
   projectDetailStore.queryDetail(projectId)
   queryStatusForUser({
     entity_type: TrackEntityTypeEnum.project,
@@ -49,9 +54,34 @@ onMounted(() => {
     action_type: TrackActionTypeEnum.star,
     entity_id: projectId
   }).then((res) => {
-    console.log(res)
     starStatus.value = Boolean(res.data)
   })
+}
+
+const handleClickLike = () => {
+  saveActionForUser({
+    entity_type: TrackEntityTypeEnum.project,
+    action_type: TrackActionTypeEnum.like,
+    entity_id: projectId,
+    flag: Number(!likeStatus.value)
+  }).then((res) => {
+    initData()
+  })
+}
+
+const handleClickStar = () => {
+  saveActionForUser({
+    entity_type: TrackEntityTypeEnum.project,
+    action_type: TrackActionTypeEnum.star,
+    entity_id: projectId,
+    flag: Number(!starStatus.value)
+  }).then((res) => {
+    initData()
+  })
+}
+
+onMounted(() => {
+  initData()
 })
 
 onUnmounted(() => {

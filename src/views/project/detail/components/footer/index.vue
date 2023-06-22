@@ -22,19 +22,19 @@
       </div>
       <div>
         <van-space :size="18">
-          <div class="ui-flex">
+          <div class="ui-flex" @click="onClickLike">
             <van-icon v-if="likeStatus" class="icon" name="like" />
             <van-icon v-else class="icon" :name="'like-o'" />
             <span>{{ likeCount }}</span>
           </div>
-          <div class="ui-flex">
+          <div class="ui-flex" @click="onClickStar">
             <van-icon v-if="starStatus" class="icon" name="star" />
             <van-icon v-else class="icon" name="star-o" />
             <span>{{ starCount }}</span>
           </div>
           <div class="ui-flex">
             <van-icon class="icon" name="chat-o" />
-            <span>10</span>
+            <span>{{ commentCount }}</span>
           </div>
         </van-space>
       </div>
@@ -54,6 +54,9 @@ const props = defineProps<{
   likeStatus: boolean;
   likeCount: number;
   starCount: number;
+  commentCount: number;
+  onClickLike: () => void;
+  onClickStar: () => void;
 }>()
 
 const projectDetailStore = useProjectDetailStore()

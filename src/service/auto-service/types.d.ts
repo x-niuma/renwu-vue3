@@ -335,7 +335,7 @@ declare interface QueryFeedDTO {
   category_id?: string;
 }
 
-declare interface SaveActionDTO {
+declare interface SaveTrackDTO {
   entity_type: number;
   action_type: number;
   entity_id: number;
@@ -453,6 +453,7 @@ declare interface ProjectItemVo {
   author_avatar: string;
   like_count: number;
   star_count: number;
+  comment_count: number;
 }
 
 declare interface ProjectListVo {
@@ -478,6 +479,7 @@ declare interface ProjectListVo {
   author_avatar: string;
   like_count: number;
   star_count: number;
+  comment_count: number;
 }[];
 }
 
