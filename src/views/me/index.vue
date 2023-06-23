@@ -4,6 +4,7 @@ import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user'
 import { Button } from 'vant'
 import Page from '@/components/page/index.vue'
+import { TrackActionTypeEnum } from '../project/detail/utils'
 
 const router = useRouter()
 const userStore = useUserStore()
@@ -69,8 +70,8 @@ const recharge = () => router.push('/wallet');
         </div>
       </div>
       <van-cell-group title="项目">
-        <van-cell title="收藏" is-link to="/project-track" />
-        <van-cell title="点赞" is-link to="/project-track"  />
+        <van-cell title="点赞" is-link :to="'/project-track?action_type=' + TrackActionTypeEnum.like" />
+        <van-cell title="收藏" is-link :to="'/project-track?action_type=' + TrackActionTypeEnum.star"  />
       </van-cell-group>
       <div class="logout-box">
         <Button @click="logout" block type="primary">退出登录</Button>

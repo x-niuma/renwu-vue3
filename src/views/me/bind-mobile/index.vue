@@ -45,8 +45,8 @@ import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user'
 import Page from '@/components/page/index.vue'
 import { bindMobile } from '@/service/auto-service/账户模块'
-import { sendSmsCode } from '@/service/auto-service/sms-pop'
 import { showToast } from 'vant'
+import { sendSmsCode } from '@/service/auto-service/短信发送'
 
 const code = ref('')
 const mobile = ref('')

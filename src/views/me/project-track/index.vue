@@ -1,11 +1,11 @@
 <template>
   <Page title="项目互动">
     <van-tabs class="scroll" shrink v-model:active="active">
-      <van-tab title="点赞" :name="1">
-        <Collect :action_type="1" />
+      <van-tab title="点赞" :name="TrackActionTypeEnum.like">
+        <Collect :action_type="TrackActionTypeEnum.like" />
       </van-tab>
-      <van-tab title="收藏" :name="2">
-        <Collect :action_type="2" />
+      <van-tab title="收藏" :name="TrackActionTypeEnum.star">
+        <Collect :action_type="TrackActionTypeEnum.star" />
       </van-tab>
     </van-tabs>
   </Page>
@@ -15,7 +15,11 @@
 import { ref } from 'vue'
 import Page from '@/components/page/index.vue'
 import Collect from './components/collect/index.vue'
-const active = ref(1)
+import { TrackActionTypeEnum } from '@/views/project/detail/utils'
+import { useRoute } from 'vue-router'
+
+const route = useRoute();
+const active = ref(route.query.action_type ? Number(route.query.action_type) : TrackActionTypeEnum.like)
 </script>
 
 <style lang="less" scoped>
