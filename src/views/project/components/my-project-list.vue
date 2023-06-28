@@ -11,7 +11,7 @@
           <div class="d-item__logo-main">
             <div class="title-wrapper">
               <span class="title">{{ item.id }}. {{ item.title }}</span>
-              <van-icon name="ellipsis" />
+              <!-- <van-icon name="ellipsis" /> -->
             </div>
             <div class="tags">
               <InlineTag :text="item.task_type_name" />
@@ -34,13 +34,16 @@
           </div>
         </div>
         <div class="d-item__ft">
-          <div class="ui-flex" @click.stop="goUserProfile(item.user_id)">
-            <img class="d-item__avatar" :src="item.author_avatar || avatar" />
-            <div class="ui-fs-13 ui-ml-4">{{ item.author_name }}</div>
-          </div>
           <div class="ui-flex enroll-info">
             <van-icon class="icon-users" name="friends" />
             <span class="enroll-num">{{ 0 }}人报名</span>
+          </div>
+          <div class="ui-flex" @click.stop="goUserProfile(item.user_id)">
+            <Space>
+              <Button class="sm-btn" size="mini">删除</Button>
+              <Button class="sm-btn" size="mini">下架</Button>
+              <Button class="sm-btn" size="mini">编辑</Button>
+            </Space>
           </div>
         </div>
       </li>
@@ -49,32 +52,19 @@
 </template>
 
 <script lang="ts" setup>
-import { List } from 'vant'
+import { List, Button, Space } from 'vant'
 import * as projectService from '@/service/auto-service/项目模块'
 import InlineTag from '@/components/inline-tag/index.vue'
-import avatar from '@/assets/img/avatar.png'
 import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { formatDate } from '@/utils/date'
 
 const props = defineProps({
-  appTypeId: {
-    type: [String, Number],
-    default: ''
-  },
-  params: {
-    type: Object,
-    default: () => {}
-  },
   index: {
     type: Number,
     required: true
   },
   activeIndex: {
-    type: Number,
-    required: true
-  },
-  category_id: {
     type: Number,
     required: true
   }
@@ -94,11 +84,9 @@ async function getDataList() {
   const params = {
     pageSize: pageSize,
     pageIndex: pageIndex.value,
-    category_id: String(props.category_id),
-    ...props.params
   }
 
-  let res = await projectService.queryList(params)
+  let res = await projectService.queryListForCurrentUser(params)
   list.value = list.value.concat(res.data.list).map((it) =>  {
     return {
       ...it,
@@ -233,5 +221,11 @@ const loadMore = () => {
 .van-icon-ellipsis {
   position: relative;
   right: -10px;
+}
+
+.sm-btn {
+  padding-left: 8px;
+  padding-right: 8px;
+  border-radius: 0;
 }
 </style>

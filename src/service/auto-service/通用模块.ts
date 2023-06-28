@@ -7,3 +7,19 @@ export const getCity = (params: {}) => {
     data: params
   });
 }
+
+export const queryWeather = (params: {}) => {
+  return request<{}>({
+    url: "/api/general/queryWeather",
+    method: "POST",
+    data: params
+  });
+}
+
+export const queryIp = (params: {}) => {
+  return request<{}>({
+    url: "/api/general/queryIp",
+    method: "POST",
+    data: params
+  });
+}

@@ -18,6 +18,7 @@ import WalletBank from '@/views/wallet/bank/index.vue'
 import WalletBankBind from '@/views/wallet/bank/bind.vue'
 import WalletWithdraw from '@/views/wallet/withdraw/index.vue'
 import BindEmail from '@/views/me/bind-email/index.vue'
+import MyProject from '@/views/project/my/index.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -119,6 +120,11 @@ const router = createRouter({
       path: '/project-search',
       name: 'project-search',
       component: ProjectSearch
+    },
+    {
+      path: '/project-my',
+      name: 'project-my',
+      component: MyProject
     },
     {
       path: '/wexin-login-callback',

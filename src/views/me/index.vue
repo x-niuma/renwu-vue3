@@ -70,8 +70,9 @@ const recharge = () => router.push('/wallet');
         </div>
       </div>
       <van-cell-group title="项目">
-        <van-cell title="点赞" is-link :to="'/project-track?action_type=' + TrackActionTypeEnum.like" />
-        <van-cell title="收藏" is-link :to="'/project-track?action_type=' + TrackActionTypeEnum.star"  />
+        <van-cell title="我的发布" is-link :to="'/project-my'"  />
+        <van-cell title="我的点赞" is-link :to="'/project-track?action_type=' + TrackActionTypeEnum.like" />
+        <van-cell title="我的收藏" is-link :to="'/project-track?action_type=' + TrackActionTypeEnum.star"  />
       </van-cell-group>
       <div class="logout-box">
         <Button @click="logout" block type="primary">退出登录</Button>

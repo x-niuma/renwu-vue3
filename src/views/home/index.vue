@@ -20,7 +20,7 @@ import Page from '@/components/page/index.vue';
 import * as projectService from '@/service/auto-service/项目模块'
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
 import FilterMenu from './components/category-list.vue'
-import DemandList from './components/project-list.vue'
+import DemandList from '@/views/project/components/project-list.vue'
 import SearchForm from './components/search-form.vue'
 import { onMounted, ref } from 'vue'
 

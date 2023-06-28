@@ -40,6 +40,14 @@ export const updateProject = (params: CreateProjectDTO) => {
   });
 }
 
+export const queryListForCurrentUser = (params: QueryProjectDTO) => {
+  return request<ProjectListVo>({
+    url: "/api/project/queryListForCurrentUser",
+    method: "POST",
+    data: params
+  });
+}
+
 export const queryList = (params: QueryProjectDTO) => {
   return request<ProjectListVo>({
     url: "/api/project/queryList",
