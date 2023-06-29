@@ -1,7 +1,7 @@
 <template>
   <List
     v-model:loading="loading"
-    :finished="!isCurrent || !hasMore"
+    :finished="!hasMore"
     finished-text="没有更多了"
     @load="loadMore"
   >
@@ -77,16 +77,6 @@ import { useRouter } from 'vue-router'
 import { formatDate } from '@/utils/date'
 
 const emit = defineEmits(['edit', 'offline', 'delete', 'online'])
-const props = defineProps({
-  index: {
-    type: Number,
-    required: true
-  },
-  activeIndex: {
-    type: Number,
-    required: true
-  }
-})
 
 const router = useRouter()
 const goUserProfile = (id: number) => router.push('/userProfile/' + id)
@@ -96,7 +86,6 @@ const hasMore = ref(true)
 const pageIndex = ref(0)
 const pageSize = 10
 const total = ref(0)
-const isCurrent = computed(() => props.activeIndex === props.index)
 
 async function getDataList() {
   const params = {
@@ -121,13 +110,12 @@ const switchItem = (itemId: number) => {
 }
 
 const loadMore = () => {
-  if (!isCurrent.value) return
   pageIndex.value++
   getDataList()
 }
 
 defineExpose({
-  updateItem(id: number, item: ProjectVo) {
+  updateItem(id: number, item: ProjectItemVo) {
     const index = list.value.findIndex((it) => it.id === id)
     list.value[index] = item
   },

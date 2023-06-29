@@ -416,6 +416,7 @@ declare interface CreateProjectDTO {
   category_id?: number;
   task_type?: number;
   task_type_name?: string;
+  status?: number;
 }
 
 declare interface ProjectUpdateVo {
@@ -448,6 +449,7 @@ declare interface ProjectItemVo {
   category_id: number;
   task_type: number;
   task_type_name: string;
+  status: number;
   category_name: string;
   author_name: string;
   author_avatar: string;
@@ -474,6 +476,7 @@ declare interface ProjectListVo {
   category_id: number;
   task_type: number;
   task_type_name: string;
+  status: number;
   category_name: string;
   author_name: string;
   author_avatar: string;

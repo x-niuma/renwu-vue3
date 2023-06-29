@@ -19,14 +19,14 @@ import { useRouter } from 'vue-router'
 import { showToast } from 'vant'
 import { toRaw, ref } from 'vue'
 
-const listRef = ref(null)
+const listRef = ref<InstanceType<typeof DemandList> | null>(null)
 const $router = useRouter()
 
-const handleEdit = (item: ProjectVo) => {
+const handleEdit = (item: ProjectItemVo) => {
   $router.push('project-edit?id=' + item.id)
 }
 
-const handleOnline = (item: ProjectVo) => {
+const handleOnline = (item: ProjectItemVo) => {
   updateProject({
     ...toRaw(item),
     status: 1
@@ -42,7 +42,7 @@ const handleOnline = (item: ProjectVo) => {
   })
 }
 
-const handleOffline = (item: ProjectVo) => {
+const handleOffline = (item: ProjectItemVo) => {
   const action = () =>
     updateProject({
       ...toRaw(item),
@@ -68,7 +68,7 @@ const handleOffline = (item: ProjectVo) => {
     .catch(() => {})
 }
 
-const handleDelete = (item: ProjectVo) => {
+const handleDelete = (item: ProjectItemVo) => {
   const action = () =>
     remove({
       id: item.id
