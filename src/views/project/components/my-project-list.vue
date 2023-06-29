@@ -40,9 +40,26 @@
           </div>
           <div class="ui-flex" @click.stop="goUserProfile(item.user_id)">
             <Space>
-              <Button class="sm-btn" size="mini">删除</Button>
-              <Button class="sm-btn" size="mini">下架</Button>
-              <Button class="sm-btn" size="mini">编辑</Button>
+              <Button class="sm-btn" size="mini" @click.stop="() => emit('delete', item, index)"
+                >删除</Button
+              >
+              <Button
+                v-if="item.status === 1"
+                class="sm-btn"
+                size="mini"
+                @click.stop="() => emit('offline', item, index)"
+                >下架</Button
+              >
+              <Button
+                v-else
+                class="sm-btn"
+                size="mini"
+                @click.stop="() => emit('online', item, index)"
+                >上架</Button
+              >
+              <Button class="sm-btn" size="mini" @click.stop="() => emit('edit', item, index)"
+                >编辑</Button
+              >
             </Space>
           </div>
         </div>
@@ -59,6 +76,7 @@ import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { formatDate } from '@/utils/date'
 
+const emit = defineEmits(['edit', 'offline', 'delete', 'online'])
 const props = defineProps({
   index: {
     type: Number,
@@ -83,11 +101,11 @@ const isCurrent = computed(() => props.activeIndex === props.index)
 async function getDataList() {
   const params = {
     pageSize: pageSize,
-    pageIndex: pageIndex.value,
+    pageIndex: pageIndex.value
   }
 
   let res = await projectService.queryListForCurrentUser(params)
-  list.value = list.value.concat(res.data.list).map((it) =>  {
+  list.value = list.value.concat(res.data.list).map((it) => {
     return {
       ...it,
       create_time: formatDate(it.create_time)
@@ -107,6 +125,17 @@ const loadMore = () => {
   pageIndex.value++
   getDataList()
 }
+
+defineExpose({
+  updateItem(id: number, item: ProjectVo) {
+    const index = list.value.findIndex((it) => it.id === id)
+    list.value[index] = item
+  },
+  deleteItem(id: number) {
+    const index = list.value.findIndex((it) => it.id === id)
+    list.value.splice(index, 1)
+  }
+})
 </script>
 
 <style lang="less" scoped>

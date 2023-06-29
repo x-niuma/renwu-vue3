@@ -8,9 +8,9 @@ export const tabbar = [
     replace: true
   },
   {
-    span: '发现',
+    span: '发布',
     icon: 'add',
-    activeIcon: 'friends-o',
+    activeIcon: 'add-o',
     path: '/publish',
     replace: false
   },

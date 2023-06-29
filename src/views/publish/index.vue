@@ -25,13 +25,13 @@
       </div>
     </van-nav-bar>
     <ProjectForm v-if="tabIndex===0"/>
-    <!-- <TopicForm v-if="tabIndex===1" /> -->
+    <TopicForm v-if="tabIndex===1" />
   </div>
 </template>
 
 <script>
-import ProjectForm from './demand/index.vue'
-// import TopicForm from './topic/index.vue'
+import ProjectForm from '@/views/project/edit/add.vue'
+import TopicForm from '@/views/topic/edit.vue'
 export default {
   components: {
     TopicForm,

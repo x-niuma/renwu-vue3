@@ -142,7 +142,7 @@ const confirmCityPicker = (data: PickerOption[]) => {
 
 // 选择图片
 const imagePickerRef = ref<null | ImagePickerRef>()
-const defaultImageValue = props.isEdit
+const defaultImageValue = props.isEdit && (props.detail as ProjectItemVo).images
   ? (props.detail as ProjectItemVo).images.split(',').map((it) => ({ url: it }))
   : []
 
